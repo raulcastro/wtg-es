@@ -1,0 +1,36 @@
+RewriteEngine On
+
+# Error Pages
+ErrorDocument 401 /not-found.html
+ErrorDocument 403 /not-found.html
+ErrorDocument 404 /not-found.html
+ErrorDocument 500 /not-found.html
+
+# Prevent directory browsing
+Options -Indexes
+
+# Canonical host
+RewriteCond	%{HTTP_HOST} 	^www\.(.*) 		[NC]
+RewriteRule	^(.*)$ 			http://%1/$1	[L,R,NE]
+
+# Rewrite Rules
+
+RewriteRule ^admin$ /admin/
+RewriteRule ^crm-root$ /crm-root/
+RewriteRule ^sitemap.xml$ sitemap.xml
+RewriteRule ^osengine/menu.php$ osengine/menu.php
+RewriteRule ^videos$ /videos.php?videos=1
+RewriteRule ^map$ /map.php?map=1
+RewriteRule ^contact-us$ /contact.php
+RewriteRule ^location/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$ /cover_category.php?location=$1&category=$2
+RewriteRule ^location/([A-Za-z0-9-]+)$ /cover_category.php?bylocation=$1
+RewriteRule ^([A-Za-z0-9-]+)$ /cover_category.php?category=$1
+RewriteRule ^([A-Za-z0-9-]+)$ /cover_category.php?category=$1
+RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$ /cover_category.php?category=$1&sub=$2
+RewriteRule ^c/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$ /show_company.php?category=$1&company=$2
+RewriteRule ^c/location/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$ /show_company.php?category=$2&company=$3
+
+# Search Engine
+
+RewriteRule ^search/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$ /search.php?categoryName=$1&categoryId=$2&term=$3&from=$4
+RewriteRule ^search/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$ /search.php?categoryName=$1&categoryId=$2&term=$3&from=$4&to=$5

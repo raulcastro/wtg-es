@@ -1284,7 +1284,7 @@ h2, .heading-2 {
     padding: 5px 60px; }
   @media (min-width: 768px) {
     h2, .heading-2 {
-      font-size: 70px;
+      font-size: 40px;
       line-height: 70px; } }
 
 h3, .heading-3 {
@@ -1295,7 +1295,7 @@ h3, .heading-3 {
   letter-spacing: -1px; }
   @media (min-width: 768px) {
     h3, .heading-3 {
-      font-size: 40px;
+      font-size: 30px;
       line-height: 70px; } }
 
 h4, .heading-4 {
@@ -1522,8 +1522,8 @@ h3 + .list-2 {
   padding-bottom: 0.8rem; }
   @media (min-width: 992px) {
     .well-xl {
-      padding-top: 1.38rem;
-      padding-bottom: 1.23rem; } }
+      padding-top: 1rem;
+      padding-bottom: 0.5rem; } }
   .well-xl-1 {
     padding-top: 0.8rem;
     padding-bottom: 0.8rem; }
@@ -1543,15 +1543,15 @@ h3 + .list-2 {
     padding-bottom: 0.8rem; }
     @media (min-width: 1600px) {
       .well-xl-3 {
-        padding-top: 1.32rem;
-        padding-bottom: 1.48rem; } }
+        padding-top: 1rem;
+        padding-bottom: 1rem; } }
   .well-xl-4 {
     padding-top: 0.8rem;
     padding-bottom: 0.8rem; }
     @media (min-width: 1600px) {
       .well-xl-4 {
-        padding-top: 1.33rem;
-        padding-bottom: 1.65rem; } }
+        padding-top: 1rem;
+        padding-bottom: .5rem; } }
   .well-xl-5 {
     padding-top: 0.8rem;
     padding-bottom: 0.8rem; }
@@ -1768,21 +1768,7 @@ h3 + .list-2 {
 
 .text-line-2 {
   position: relative; }
-  .text-line-2:before {
-    position: absolute;
-    content: "";
-    width: 54px;
-    height: 4px;
-    background: #2b2729;
-    top: 78px;
-    left: 50%;
-    -webkit-transform: translatex(-50%);
-    transform: translatex(-50%); }
-    @media (min-width: 768px) {
-      .text-line-2:before {
-        left: 0;
-        -webkit-transform: translatex(0%);
-        transform: translatex(0%); } }
+  
 
 .text-line-3 {
   position: relative; }
@@ -7207,7 +7193,7 @@ a.icon-primary:hover {
         border-bottom: 1px solid #e6e7e7; } }
     @media (min-width: 1200px) {
       .index-list > li {
-        padding: 187px 0px 181px; } }
+        padding: 20px 0px 20px; } }
     .index-list > li:before {
       content: counter(li,decimal-leading-zero) "/";
       counter-increment: li;
@@ -7578,7 +7564,7 @@ a.icon-primary:hover {
       display: inline-block;
       margin-top: 1px; }
   .rd-navbar-brand .brand-name {
-    font-size: 53px;
+    font-size: 25px;
     line-height: 60px;
     font-family: "Montserrat Alternates", sans-serif;
     letter-spacing: -0.2px; }
@@ -7753,7 +7739,7 @@ a.icon-primary:hover {
     position: absolute;
     content: "/";
     top: 50%;
-    right: -21px;
+    /*right: -21px;*/
     color: #9a9a9a;
     font-size: 20px;
     line-height: 40px;
@@ -7763,8 +7749,8 @@ a.icon-primary:hover {
     display: none; }
   .rd-navbar-static .rd-navbar-nav > li > a, .rd-navbar-fullwidth .rd-navbar-nav > li > a {
     display: block;
-    padding: 10px;
-    font-size: 20px;
+    padding: 8px;
+    font-size: 16px;
     line-height: 40px;
     color: #fff;
     position: relative; }
@@ -7804,7 +7790,7 @@ a.icon-primary:hover {
   padding: 8px 0 18px 0;
   position: relative; }
   .rd-navbar-static .rd-navbar-dropdown li + li, .rd-navbar-fullwidth .rd-navbar-dropdown li + li {
-    margin-top: 6px; }
+    margin-top: 1px; }
   .rd-navbar-static .rd-navbar-dropdown .rd-navbar-dropdown, .rd-navbar-fullwidth .rd-navbar-dropdown .rd-navbar-dropdown {
     box-shadow: 0 0 0 rgba(0, 0, 0, 0.12), 3px 4px 8px 0 rgba(0, 0, 0, 0.11);
     padding: 8px 38px 18px 0;
@@ -7816,9 +7802,9 @@ a.icon-primary:hover {
       color: #fff;
       text-transform: none; }
   .rd-navbar-static .rd-navbar-dropdown > li > a, .rd-navbar-fullwidth .rd-navbar-dropdown > li > a {
-    font-size: 20px;
+    font-size: 14px;
     display: block;
-    padding: 2px 15px;
+    padding: 0 10px;
     color: #fff;
     background: transparent; }
   .rd-navbar-static .rd-navbar-dropdown > li > a:hover, .rd-navbar-fullwidth .rd-navbar-dropdown > li > a:hover {
@@ -8100,7 +8086,7 @@ a.icon-primary:hover {
     margin-left: -32px; }
     .rd-navbar-static .rd-navbar-nav > li {
       display: inline-block;
-      margin-left: 32px; }
+      margin-left: 2px; }
   .rd-navbar-static .rd-navbar-static--visible {
     display: block; }
   .rd-navbar-static .rd-navbar-static--hidden {
@@ -8133,7 +8119,7 @@ a.icon-primary:hover {
       .rd-navbar-fullwidth .rd-navbar-nav > li > a {
         display: block;
         text-align: center;
-        padding: 20px; }
+        padding: 20px 10px; }
   .rd-navbar-fullwidth.rd-navbar--is-stuck {
     -webkit-transform: translateY(-120px);
     transform: translateY(-120px); }

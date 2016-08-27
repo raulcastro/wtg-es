@@ -199,7 +199,7 @@ function isIE() {
     var o = $('#google-map');
 
     if (o.length) {
-        include('//maps.google.com/maps/api/js');
+        include('//maps.google.com/maps/api/js?key=AIzaSyA_dZD_E9TbBfZeu3x-6vTpxOKOsHJ9pDI');
         $(document).ready(function () {
             var head = document.getElementsByTagName('head')[0],
                 insertBefore = head.insertBefore;
