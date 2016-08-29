@@ -151,7 +151,6 @@ class Layout_View
 		<meta property="og:site_name" content="<?php echo $this->data['appInfo']['siteName']; ?> />
 		<link rel='canonical' href="<?php echo $this->data['appInfo']['url']; ?>" />
 		<?php echo self::getCommonDocuments(); ?>
-		
 		<?php echo self::getGoogleAnalytics(); 
 		
         $head = ob_get_contents();
@@ -225,7 +224,6 @@ class Layout_View
 	{
 		ob_start();
 		?>
-		
 		<!--========================================================
                               HEADER
 	    =========================================================-->
@@ -395,19 +393,15 @@ class Layout_View
 	                <li class="col-md-3 col-sm-6 offset-8">
 	                    <strong>Our Other Locations</strong>
 							<ul>
-							    <?php echo self :: getLocationsFooter($locations); ?>
+							    <?php echo self :: getLocationsFooter(); ?>
 							</ul>
 	                </li>
 	                <li class="col-md-3 col-sm-6 offset-2">
 	                    <address class="contact-info">
 	                        <dl>
-	                            <dt>8901 Marmora Road,</dt>
-	                            <dd>
-	                                Glasgow, D04 89GR.
-	                            </dd>
-	                            <dt class="display">Freephone: </dt>
+	                            <dt class="display">E-Mail: </dt>
 	                            <dd class="display">
-	                                <a href="callto:#"> +1 800 559 6580</a>
+	                                <a href="callto:#"> info@wheretogo.com.mx</a>
 	                            </dd>
 	                        </dl>
 	                    </address>
@@ -415,11 +409,7 @@ class Layout_View
 	                <li class="col-md-3 col-sm-6 offset-2">
 	                    <address class="contact-info">
 	                        <dl>
-	                            <dt>9378 St Vincent Place,</dt>
-	                            <dd>
-	                                Amsterdam, MG09 99HT
-	                            </dd>
-	                            <dt class="display">Freephone: </dt>
+	                            <dt class="display">Tel&eacute;fono: </dt>
 	                            <dd class="display">
 	                                <a href="callto:#"> +1 800 559 6580</a>
 	                            </dd>
@@ -428,7 +418,6 @@ class Layout_View
 	                </li>
 	            </ul>
 	            <div class="copyright">
-	                <a href="index.html"><strong class="material-icons-filter_drama before-bold"></strong></a>
 	                <div>
 	                <?php echo $this->data['appInfo']['siteName']; ?> &#169; <span id="copyright-year"></span> •
 	                <a href='index-6.html'>Privacy Policy</a>
@@ -586,73 +575,94 @@ class Layout_View
 	                    <div class="col-md-4 wow fadeInLeft">
 	                        <h3 class="text-line-2 text-default-3">Videos</h3>
 	                        <?php echo  self :: getVideosIndex(); ?>
-	                        <a class="btn btn-xs btn-primary-1" href="index.html#">Learn more <span class="material-icons-chevron_right"></span></a>
+	                        <a class="btn btn-xs btn-primary-1" href="index.html#">Ver todos<span class="material-icons-chevron_right"></span></a>
 	                    </div>
 	                </div>
 	            </div>
 	        </section>
 	        <!-- END Clients choose us! -->
 	        <!-- Contact us -->
-        <section class="well-xl-6">
-            <div class="container">
-                <h3 class="text-line-2 text-default-3 text-center text-sm-left">Get in touch</h3>
-                <!-- RD Mailform -->
-                <form class='rd-mailform' method="post" action="http://livedemo00.template-help.com/wt_58825/bat/rd-mailform.php">
-                    <!-- RD Mailform Type -->
-                    <input type="hidden" name="form-type" value="contact"/>
-                    <!-- END RD Mailform Type -->
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label data-add-placeholder>
-                                    <input type="text"
-                                           name="name"
-                                           placeholder="Nombre"
-                                           data-constraints="@NotEmpty @LettersOnly"/>
-                                </label>
-                            </div>
-                            <div class="col-md-6">
-                                <label data-add-placeholder>
-                                    <input type="text"
-                                           name="email"
-                                           placeholder="Email"
-                                           data-constraints="@NotEmpty @Email"/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <label data-add-placeholder>
-                            <textarea name="message" placeholder="Mensaje"
-                                      data-constraints="@NotEmpty"></textarea>
-                                </label>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mfControls">
-                                    <button class="btn btn-md btn-primary-3" type="submit">Send</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mfInfo"></div>
-                    </fieldset>
-                </form>
-                <!-- END RD Mailform -->
-            </div>
-        </section>
-        <!-- END Contact us -->
-        <!-- RD Google Map -->
-        <section>
-            <div class="rd-google-map">
-                <div id="google-map" class="rd-google-map__model" data-zoom="14" data-x="-73.9874068"
-                     data-y="40.643180"></div>
-                <ul class="rd-google-map__locations">
-                    <li data-x="-73.9874068" data-y="40.643180">
-                        <p>9870 St Vincent Place, Glasgow, DC 45 Fr 45. <span>800 2345-6789</span></p>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <!-- END RD Google Map -->
+	        <section class="well-xl-6">
+	            <div class="container">
+	                <h3 class="text-line-2 text-default-3 text-center text-sm-left">Cont&aacute;ctanos</h3>
+	                <!-- RD Mailform -->
+	                <form class='rd-mailform' method="post" action="http://livedemo00.template-help.com/wt_58825/bat/rd-mailform.php">
+	                    <!-- RD Mailform Type -->
+	                    <input type="hidden" name="form-type" value="contact"/>
+	                    <!-- END RD Mailform Type -->
+	                    <fieldset>
+	                        <div class="row">
+	                            <div class="col-md-6">
+	                                <label data-add-placeholder>
+	                                    <input type="text"
+	                                           name="name"
+	                                           placeholder="Nombre"
+	                                           data-constraints="@NotEmpty @LettersOnly"/>
+	                                </label>
+	                            </div>
+	                            <div class="col-md-6">
+	                                <label data-add-placeholder>
+	                                    <input type="text"
+	                                           name="email"
+	                                           placeholder="Email"
+	                                           data-constraints="@NotEmpty @Email"/>
+	                                </label>
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                            <div class="col-md-9">
+	                                <label data-add-placeholder>
+	                            <textarea name="message" placeholder="Mensaje"
+	                                      data-constraints="@NotEmpty"></textarea>
+	                                </label>
+	                            </div>
+	                            <div class="col-md-3">
+	                                <div class="mfControls">
+	                                    <button class="btn btn-md btn-primary-3" type="submit">Enviar</button>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="mfInfo"></div>
+	                    </fieldset>
+	                </form>
+	                <!-- END RD Mailform -->
+	            </div>
+	        </section>
+	        <!-- END Contact us -->
+	        <!-- RD Google Map -->
+	        <section>
+	            <div class="rd-google-map">
+	                <div id="google-map" class="rd-google-map__model" data-zoom="16" data-x="-87.069887"
+	                     data-y="20.631863"></div>
+	                <ul class="rd-google-map__locations">
+	                	<?php 
+	                	foreach ($this->data['companies_map'] as $company)
+	                	{
+	                		?>
+	                	<li data-x="<?php echo $company['longitude']; ?>" data-y="<?php echo $company['latitude']; ?>">
+	                		<div class="map-info-item">
+	                			<div class="map-info-image">
+	                				<a href="/company/<?php echo $company['category'].'/'.Tools::slugify($company['category_name']).'/'.$company['company_id'].'/'.Tools::slugify($company['name']).'/'; ?>">
+								    	<img alt="<?php echo $name; ?>" src="/img-up/companies_pictures/logo/<?php echo $company['logo']; ?>">
+								    </a>
+	                			</div>
+	                			<div class="map-info">
+	                				<a href="/company/<?php echo $company['category'].'/'.Tools::slugify($company['category_name']).'/'.$company['company_id'].'/'.Tools::slugify($company['name']).'/'; ?>">
+	                					<h4><?php echo $company['name']; ?></h4>
+	                				</a>
+	                				<a href="/company/<?php echo $company['category'].'/'.Tools::slugify($company['category_name']).'/'.$company['company_id'].'/'.Tools::slugify($company['name']).'/'; ?>">
+	                					<?php echo trim(preg_replace('/\s+/', ' ',str_replace(array("'"), "",$company['seo_description']))); ?>
+	                				</a>
+	                			</div>
+	                		</div>
+	                    </li>
+	                		<?php
+	                	}
+	                	?>
+	                </ul>
+	            </div>
+	        </section>
+	        <!-- END RD Google Map -->
 		</main>
     	
 		<?php

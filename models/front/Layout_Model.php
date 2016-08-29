@@ -120,11 +120,11 @@ class Layout_Model
 	{
 		try
 		{
-			$query = 'SELECT l.*, cu.ubication
+			$query = 'SELECT l.location_id, l.name
 					FROM locations l
-					LEFT JOIN companies_ubication cu ON cu.ubication = l.location_id
-					WHERE ubication != "NULL"
-					GROUP BY  l.name';
+					LEFT JOIN companies_ubication cu on cu.ubication = l.location_id
+					WHERE cu.ubication IS NOT NULL
+					GROUP BY l.location_id';
 			return $this->db->getArray($query);
 		}
 		catch (Exception $e)

@@ -62,18 +62,18 @@ class generalBackend
 		switch ($section) 
 		{
 			case 'mainSection':
-				
 				// 		array of the main sliders
-				$slidersArray = $this->model->getMainSliders();
-				$data['mainSliders'] = $slidersArray;
+				$data['mainSliders'] = $this->model->getMainSliders();
 				
 				// 		array of videos
-				$videosArray = $this->model->getVideos(2);
-				$data['lastTwoVideos'] = $videosArray;
+				$data['lastTwoVideos'] = $this->model->getVideos(2);
 				
 				// 		Main promoted companies
-				$mainPromotedArray = $this->model->getMainPromotedCompanies();
-				$data['mainPromoted'] = $mainPromotedArray;
+				$data['mainPromoted'] = $this->model->getMainPromotedCompanies();
+				
+				//		get companies with a correct location
+				$data['companies_map']	= $this->model->getCompaniesWithLocation();
+				 
 			break;
 
 			case 'byCategory':

@@ -1564,7 +1564,7 @@ h3 + .list-2 {
     padding-bottom: 0.8rem; }
     @media (min-width: 1600px) {
       .well-xl-6 {
-        padding-top: 1.35rem;
+        padding-top: .5rem;
         padding-bottom: 1.53rem; } }
   .well-xl-7 {
     padding-top: 0.8rem;
@@ -1585,7 +1585,7 @@ h3 + .list-2 {
     padding-bottom: 0.8rem; }
     @media (min-width: 1600px) {
       .well-xl-9 {
-        padding-top: 3.23rem;
+        padding-top: 1.23rem;
         padding-bottom: 3.11rem; } }
   .well-xl-10 {
     padding-top: 0.8rem;
@@ -7147,7 +7147,7 @@ a.icon-primary:hover {
   .index-list-1 > li {
     position: relative; }
     .index-list-1 > li:before {
-      content: counter(li,decimal-leading-zero) "/";
+      /*content: counter(li,decimal-leading-zero) "/";*/
       counter-increment: li;
       font-size: 12px;
       color: #d9d9d9;
@@ -10370,3 +10370,36 @@ button.swiper-pagination-bullet {
     @media (min-width: 768px) {
       .copyright strong {
         margin-right: 44px; } }
+
+ .map-info-item {
+ }
+ 
+  
+ .map-info-item .map-info-image {
+ 	float: left;
+ }
+ 
+ .map-info-item .map-info-image img {
+ 	width: 140px;
+ }
+ 
+ .map-info-item .map-info {
+ 	width: 300px;
+ 	float: left;
+ 	padding-left: 20px;
+ }
+ 
+  .map-info-item .map-info h4{
+ 	font-size: 14px;
+ 	font-weight: bold;
+ 	
+ }
+ 
+  .map-info-item .map-info p{
+ 	font-size: 14px;
+ }
+ 
+ 
+ 
+ 
+ 
