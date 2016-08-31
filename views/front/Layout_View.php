@@ -633,7 +633,7 @@ class Layout_View
 	                    <div class="col-md-4 wow fadeInLeft">
 	                        <h3 class="text-line-2 text-default-3">Videos</h3>
 	                        <?php echo  self :: getVideosIndex(); ?>
-	                        <a class="btn btn-xs btn-primary-1" href="index.html#">Ver todos<span class="material-icons-chevron_right"></span></a>
+	                        <a class="btn btn-xs btn-primary-1" href="/videos/">Ver todos<span class="material-icons-chevron_right"></span></a>
 	                    </div>
 	                </div>
 	            </div>
@@ -644,7 +644,7 @@ class Layout_View
 	            <div class="container">
 	                <h3 class="text-line-2 text-default-3 text-center text-sm-left">Cont&aacute;ctanos</h3>
 	                <!-- RD Mailform -->
-	                <form class='rd-mailform' method="post" action="http://livedemo00.template-help.com/wt_58825/bat/rd-mailform.php">
+	                <form class='rd-mailform' method="post" action="/bat/rd-mailform.php">
 	                    <!-- RD Mailform Type -->
 	                    <input type="hidden" name="form-type" value="contact"/>
 	                    <!-- END RD Mailform Type -->
@@ -799,13 +799,12 @@ class Layout_View
 		?>
 		<div class="item">
 			<div class="thumb"> 
-				<a  rel="vimeo" href="https://www.youtube.com/watch?v=<?php echo $video['youtube']; ?>" class="swipebox-video">
+				<a href="https://www.youtube.com/watch?v=<?php echo $video['youtube']; ?>" data-lightbox="iframe">
 					<img src="<?php echo $image; ?>" 
 							alt="<?php $video['title']; ?>"
 							/>
 				</a>
 			</div>
-			<span><?php echo $video['duration']; ?></span>
 			<div class="clr"></div>
 			<a href="http://www.youtube.com/watch?v=<?php echo $video['youtube']; ?>"
 					target="_blank" 
@@ -1959,8 +1958,6 @@ class Layout_View
     	<link rel='canonical' href="<?php echo $this->data['appInfo']['url']; ?>" />
     	<?php echo self::getCommonDocuments(); ?>
     	<?php echo self::getGoogleAnalytics(); ?>
-    	<script type="text/javascript" src="/js/front/jquery.swipebox.js"></script>
-		<script type="text/javascript" src="/js/front/init-swipe-box-videos.js"></script>
         <?php
         $head = ob_get_contents();
         ob_end_clean();
@@ -1977,15 +1974,11 @@ class Layout_View
     public function getVideosContent()
     {
     	ob_start();
+    	echo self::getCommonHeader();
     	?>
-    	<?php echo self :: getBackground(); ?>	
-    	<div id="main-grid" class='inside cf'>
-    		<div class="main-wrapper-bg" style="">
-    			<?php echo self :: getMenuLeft(); ?>
-    			<?php echo self :: getVideos(); ?>
-    		</div>
-    		<div class="clear"></div>
-    	</div>
+    	<main class="page-content">
+    		<?php echo self :: getVideos(); ?>
+    	</main>
     	<?php
     	$coverBody = ob_get_contents();
     	ob_end_clean();
@@ -2003,46 +1996,32 @@ class Layout_View
 	{
 		ob_start();
 		?>
-		<div id="main_contents">
-			<h1>
-				<a href="/videos/">
-					Videos
-				</a>
-			</h1>
-			<div class="clr"></div>
-			<h3><?php echo $this->data['appInfo']['siteName']; ?></h3>
-			
-			<div class="clr"></div>
-			
-			<ul class="videos swipebox-video">
-				<?php 
-				foreach ($this->data['videos'] as $video)
-				{
-				$image = str_replace('2.jpg', 'mqdefault.jpg', $video['image']);
-				?>
-				<li>
-					<article class='protip'>
-						<header>
-							<div class="img-cover">	
-								<a href="https://www.youtube.com/watch?v=<?php echo $video['youtube']; ?>" rel="youtube" class="title">
-									<img src="<?php echo $image; ?>"
-											alt="<?php $video['title']; ?>"  class="protip_li_img"/>
-								</a>
-							</div>
-						</header>
-						<a href="https://www.youtube.com/watch?v=<?php echo $video['youtube']; ?>" rel="youtube" class="title " style="font-size: 1.2em; font-weight: bold;">
-							<?php echo $video['title']; ?>
-						</a>
-						<footer class='cf'>
-							<?php echo $video['content']; ?>
-						</footer>
-					</article>
-				</li>
-				<?php
-				}
-				?>
-			</ul>
-		</div>
+		<!-- Recent news -->
+        <section class="well-xl-7 text-center text-md-left">
+            <div class="container">
+                <h3 class="text-line-3 text-center"><?php echo $this->data['appInfo']['siteName']; ?></h3>
+                <div class="row offset-6">
+                	<?php 
+					foreach ($this->data['videos'] as $video)
+					{
+						$image = str_replace('2.jpg', 'mqdefault.jpg', $video['image']);
+					?>
+                    <div class="col-md-3 wow fadeInLeft video-box">
+                    	<a href="https://www.youtube.com/watch?v=<?php echo $video['youtube']; ?>" data-lightbox="iframe">
+                        	<img width="370" height="328" alt="" src="<?php echo $image; ?>">
+                        </a>
+                        <h4 class="offset-19"><a href="https://www.youtube.com/watch?v=<?php echo $video['youtube']; ?>" data-lightbox="iframe"><?php echo $video['title']; ?></a></h4>
+                        <p class="offset-20 font-size-5">
+                            <?php echo $video['content']; ?>
+                        </p>
+                    </div>
+                    <?php 
+					}
+                    ?>
+                </div>
+            </div>
+        </section>
+        <!-- END Recent news -->
 		<?php	    
 		$videos = ob_get_contents();
 		ob_end_clean();

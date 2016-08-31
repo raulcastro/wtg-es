@@ -10870,3 +10870,9 @@ img.mfp-img {
  	color: #655f63!important;
  	border: 2px solid rgba(101, 95, 99, 0.3)!important;
  }
+ 
+ .video-box h4 {
+ 	font-size: 16px;
+ 	line-height: 18px;
+ 	margin-top: 10px!important;
+ }
