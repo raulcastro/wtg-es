@@ -587,6 +587,51 @@ function isIE() {
 })(jQuery);
 
 /**
+ * @module       Magnific Popup
+ * @description  Enables Magnific Popup Plugin
+ */
+;
+(function ($) {
+
+    var o = $('[data-lightbox]').not('[data-lightbox="gallery"] [data-lightbox]'),
+        g = $('[data-lightbox^="gallery"]');
+
+    if (o.length > 0 || g.length > 0) {
+
+        $(document).ready(function () {
+            if (o.length) {
+                o.each(function () {
+                    var $this = $(this);
+                    $this.magnificPopup({
+                        type: $this.attr("data-lightbox")
+                    });
+                })
+            }
+
+            if (g.length) {
+                g.each(function () {
+                    var $gallery = $(this);
+                    $gallery
+                        .find('[data-lightbox]').each(function () {
+                            var $item = $(this);
+                            $item.addClass("mfp-" + $item.attr("data-lightbox"));
+                        })
+                        .end()
+                        .magnificPopup({
+                            delegate: '[data-lightbox]',
+                            type: "image",
+                            gallery: {
+                                enabled: true
+                            }
+                        });
+                })
+            }
+        });
+    }
+})(jQuery);
+
+
+/**
  * @module       Progress Bar
  * @description  Enables Progress Bar Plugin
  */

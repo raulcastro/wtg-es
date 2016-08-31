@@ -1,0 +1,76 @@
+RewriteEngine On
+
+# Error Pages
+ErrorDocument 401 /not-found.html
+ErrorDocument 403 /not-found.html
+ErrorDocument 404 /not-found.html
+ErrorDocument 500 /not-found.html
+
+# Prevent directory browsing
+Options -Indexes +FollowSymLinks -MultiViews
+
+# Canonical host
+RewriteCond %{HTTP_HOST}    ^www\.(.*)      [NC]
+RewriteRule ^(.*)$          http://%1/$1    [L,R,NE]
+
+#Needed
+RewriteRule ^sitemap.xml$ sitemap.xml
+
+# Rewrite Rules
+RewriteRule ^location/([0-9]+)/([A-Za-z0-9-]+)/$ /cover_category.php?location=$1
+RewriteRule ^company/([0-9]+)/([A-Za-z0-9-]+)/([0-9]+)/([A-Za-z0-9-]+)/$ /show_company.php?category=$1&company=$3
+RewriteRule ^company/([0-9]+)/([A-Za-z0-9-]+)/([0-9]+)/([A-Za-z0-9-]+)/([0-9]+)/([A-Za-z0-9-]+)/$ /show_company.php?category=$1&subcategory=$3&company=$5
+RewriteRule ^([0-9]+)/([A-Za-z0-9-]+)/$ /cover_category.php?category=$1
+RewriteRule ^events/([0-9]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([0-9]+)/([A-Za-z0-9-]+)/$ /show_company.php?belong_company=$1&company=$4
+RewriteRule ^events/$ /cover_events.php?category=$1
+
+RewriteRule ^([0-9]+)/([A-Za-z0-9-]+)/([0-9]+)/([A-Za-z0-9-]+)/$ /cover_category.php?category=$1&subcategory=$3
+
+# Search links
+RewriteRule ^search/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$ /search.php?categoryName=$1&categoryId=$2&term=$3&from=$4
+RewriteRule ^search/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$ /search.php?categoryName=$1&categoryId=$2&term=$3&from=$4&to=$5
+
+#Static sites
+RewriteRule ^map/$ /map.php
+RewriteRule ^videos/$ /videos.php
+RewriteRule ^contact-us/$ /contact.php
+
+#   Admin section
+
+#   Edit  companies
+RewriteRule ^admin/company/main/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company.php?company=$1
+RewriteRule ^admin/company/info/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-info.php?company=$1
+RewriteRule ^admin/company/seo/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-seo.php?company=$1
+RewriteRule ^admin/company/social/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-social.php?company=$1
+RewriteRule ^admin/company/contact/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-contact.php?company=$1
+RewriteRule ^admin/company/media/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-media.php?company=$1
+RewriteRule ^admin/company/events/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-events.php?company=$1
+RewriteRule ^admin/company/settings/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-settings.php?company=$1
+
+#   Add company
+RewriteRule ^admin/add-company/$ /admin/add-company.php?1&section=2
+
+# grid
+RewriteRule ^admin/grid/$ /admin/grid.php?section=3
+RewriteRule ^admin/grid/promoted/$ /admin/grid.php?promoted=1&section=3
+RewriteRule ^admin/grid/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/grid.php?categoryId=$1&section=3
+
+#   main-sliders
+RewriteRule ^admin/main-gallery/$ /admin/main-gallery.php?section=7
+
+#   videos
+RewriteRule ^admin/videos/$ /admin/videos.php?section=8
+
+#   Members
+RewriteRule ^admin/members/$ /admin/members.php?section=5
+RewriteRule ^admin/member-detail/([0-9]+)/$ /admin/member-detail.php?section=5&member=$1
+
+#   settings
+RewriteRule ^admin/settings/$ /admin/settings.php?section=9
+
+#   settings / categories
+RewriteRule ^admin/categories/$ /admin/categories.php?section=9
+
+#   settings / locations
+RewriteRule ^admin/locations/$ /admin/locations.php?section=9
+

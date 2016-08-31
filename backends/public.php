@@ -77,10 +77,6 @@ class generalBackend
 			break;
 
 			case 'byCategory':
-				// 		get the background file for use as blur
-				$background = $this->model->getRandomBlur();
-				$data['background'] = $background;
-				
 				//		get category info by the category id
 				$categoryInfo = $this->model->getCategoryInfoById($_GET['category']);
 				$data['categoryInfo'] = $categoryInfo;
@@ -134,10 +130,6 @@ class generalBackend
 				$subcategoryId 	= $_GET['subcategory'];
 				$categoryId 	= $_GET['category'];
 				
-				// 		get the background file for use as blur
-				$background = $this->model->getCompanyLogo($companyId);
-				$data['background'] = $background;
-				
 				$companySeoInfo		  = $this->model->getCompanySeoInfo($companyId);
 				$general	     	  = $this->model->companyInfo($companyId);
 				$lastSlider			  = $this->model->getLastSlider($companyId);
@@ -147,6 +139,7 @@ class generalBackend
 				$emails           	  = $this->model->getEmails($companyId);
 				$phones               = $this->model->getPhones($companyId);
 				$subcategoryInfo 	  = $this->model->getSubcategoryInfoById($subcategoryId);
+				$background			  = $this->model->getCompanyLogo($companyId);
 				
 				$companyInfo = array(
 						'seo'			=> $companySeoInfo,
@@ -215,10 +208,6 @@ class generalBackend
 			break;
 
 			case 'map':
-				// 		get the background file for use as blur
-				$background = $this->model->getRandomBlur();
-				$data['background'] = $background;
-			
 				//		get companies with a correct location
 				$companiesArray	= $this->model->getCompaniesWithLocation();
 				$data['companies'] = $companiesArray;

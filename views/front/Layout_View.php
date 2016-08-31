@@ -77,8 +77,6 @@ class Layout_View
 			<!-- The Main Wrapper -->
 			<div class="page">
 			<?php 
-			echo self :: getHeader();
-			  
 			switch ($section) {
 				case 'mainSection':
 					echo self :: getIndexContent();
@@ -165,8 +163,8 @@ class Layout_View
     	<!-- Stylesheets -->
 	    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 	    <link href='http://fonts.googleapis.com/css?family=Montserrat+Alternates:400,700%7CRoboto:400,300,500,700' rel='stylesheet' type='text/css'>
-	    <link rel="stylesheet" href="css/material-icons.css">
-	    <link rel="stylesheet" href="css/style.css">
+	    <link rel="stylesheet" href="/css/material-icons.css">
+	    <link rel="stylesheet" href="/css/style.css">
 	    <!--[if lt IE 10]>
 	    <script src="js/html5shiv.min.js"></script>
 	    <![endif]-->
@@ -220,7 +218,7 @@ class Layout_View
      * 
      * @return string
      */
-    public function getHeader()
+    public function getIndexHeader()
 	{
 		ob_start();
 		?>
@@ -239,14 +237,12 @@ class Layout_View
 	                        <!-- END RD Navbar Toggle -->
 	                        <!-- RD Navbar Brand -->
 	                        <div class="rd-navbar-brand">
-	                            <a href="index.html" class=" text-white text-ubold" alt="<?php echo $this->data['appInfo']['siteName']; ?>">
+	                            <a href="/" class=" text-white text-ubold" alt="<?php echo $this->data['appInfo']['siteName']; ?>">
 	                                <span class="brand-name">Where to Go</span>
 	                            </a>
 	                        </div>
 	                        <!-- END RD Navbar Brand -->
 	                    </div>
-	                    
-	                    
 	                    <!-- END RD Navbar Panel -->
 	                    <div class="rd-navbar-nav-wrap">
 	                    	<?php echo self::getTopMenu(); ?>
@@ -266,7 +262,7 @@ class Layout_View
 	                        <a class="icon-xs fa-twitter" target="_blank" href="http://twitter.com/<?php echo $this->data['appInfo']['twitter']; ?>"></a>
 	                    </li>
 	                    <li>
-	                        <a class="icon-xs fa-facebook-square" target="_blank" href="http://www.facebook.com/<?php echo $this->data['appInfo']['facebook']; ?>></a>
+	                        <a class="icon-xs fa-facebook-square" target="_blank" href="http://www.facebook.com/<?php echo $this->data['appInfo']['facebook']; ?>"></a>
 	                    </li>
 	                    <li>
 	                        <a class="icon-xs fa-pinterest" target="_blank" href="http://www.pinterest.com/<?php echo $this->data['appInfo']['pinterest']; ?>"></a>
@@ -308,6 +304,56 @@ class Layout_View
 		return $header;
 	}
 	
+	public function getCommonHeader()
+	{
+		ob_start();
+		?>
+		<!--For older internet explorer-->
+	    <div class="old-ie"
+	         style='background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;'>
+	        <a href="http://windows.microsoft.com/en-US/internet-explorer/..">
+	            <img src="/images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820"
+	                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."/>
+	        </a>
+	    </div>
+	    <!--END block for older internet explorer-->
+	    <!--========================================================
+	                              HEADER
+	    =========================================================-->
+	    <header class="page-header bg2">
+	        <!-- RD Navbar -->
+	        <div class="rd-navbar-wrap rd-navbar-wrap-1">
+	            <nav class="rd-navbar" data-rd-navbar-lg="rd-navbar-static">
+	                <div class="rd-navbar-inner">
+	                    <!-- RD Navbar Panel -->
+	                    <div class="rd-navbar-panel">
+	                        <!-- RD Navbar Toggle -->
+	                        <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar"><span></span></button>
+	                        <!-- END RD Navbar Toggle -->
+	                        <!-- RD Navbar Brand -->
+	                        <div class="rd-navbar-brand">
+	                            <a href="/" class=" text-white text-ubold" alt="<?php echo $this->data['appInfo']['siteName']; ?>">
+	                                <span class="brand-name">Where to Go</span>
+	                            </a>
+	                        </div>
+	                        <!-- END RD Navbar Brand -->
+	                    </div>
+	                    <!-- END RD Navbar Panel -->
+	                    <div class="rd-navbar-nav-wrap">
+	                    	<?php echo self::getTopMenu(); ?>
+	                    </div>
+	                </div>
+	            </nav>
+	        </div>
+	        <!-- END RD Navbar -->
+	    </header>
+		
+		<?php
+		$header = ob_get_contents();
+		ob_end_clean();
+		return $header;
+	}
+	
 	/**
 	 * getTopMenu
 	 *
@@ -338,7 +384,7 @@ class Layout_View
 					{
 						?>
 					<li>
-						<a href="index.html#"><?php echo $subcategory['name']; ?></a>
+						<a href="/<?php echo Tools::slugify($category['category_id']); ?>/<?php echo Tools::slugify($category['name']); ?>/<?php echo $subcategory['subcategory_id']; ?>/<?php echo Tools::slugify($subcategory['name']); ?>/"><?php echo $subcategory['name']; ?></a>
 					</li>
 						<?php
 					}
@@ -353,10 +399,10 @@ class Layout_View
 			}
 			?>
 			<li>
-				<a href="index-4.html">Mapa</a>
+				<a href="/map/">Mapa</a>
 			</li>
 			<li>
-				<a href="index-5.html">English</a>
+				<a href="http://www.wheretogo.com.mx">English</a>
 			</li>
 		</ul>
 			<!-- END RD Navbar Nav -->
@@ -396,22 +442,33 @@ class Layout_View
 							    <?php echo self :: getLocationsFooter(); ?>
 							</ul>
 	                </li>
+	                
 	                <li class="col-md-3 col-sm-6 offset-2">
-	                    <address class="contact-info">
-	                        <dl>
-	                            <dt class="display">E-Mail: </dt>
-	                            <dd class="display">
-	                                <a href="callto:#"> info@wheretogo.com.mx</a>
-	                            </dd>
-	                        </dl>
-	                    </address>
+	                    <ul class="inline-list offset-12 social-footer">
+                            <li>
+                                <a class="icon-xs fa-twitter" href="http://twitter.com/<?php echo $this->data['appInfo']['twitter']; ?>" target="_blank"></a>
+                            </li>
+                            <li>
+                                <a class="icon-xs fa-facebook-square" href="http://www.facebook.com/<?php echo $this->data['appInfo']['facebook']; ?>" target="_blank"></a>
+                            </li>
+                            <li>
+                                <a class="icon-xs fa-pinterest" href="http://www.pinterest.com/<?php echo $this->data['appInfo']['pinterest']; ?>" target="_blank"></a>
+                            </li>
+                            <li>
+                                <a class="icon-xs fa-youtube" href="http://www.youtube.com/user/<?php echo $this->data['appInfo']['youtube']; ?>" target="_blank"></a>
+                            </li>
+                            <li>
+                                <a class="icon-xs fa-instagram" href="http://instagram.com/<?php echo $this->data['appInfo']['instagram']; ?>" target="_blank"></a>
+                            </li>
+                        </ul>
 	                </li>
+	                
 	                <li class="col-md-3 col-sm-6 offset-2">
 	                    <address class="contact-info">
 	                        <dl>
-	                            <dt class="display">Tel&eacute;fono: </dt>
+	                            <dt class="display"></dt>
 	                            <dd class="display">
-	                                <a href="callto:#"> +1 800 559 6580</a>
+	                                E-Mail: <a href="callto:info@wheretogo.com.mx"> info@wheretogo.com.mx</a>
 	                            </dd>
 	                        </dl>
 	                    </address>
@@ -420,7 +477,7 @@ class Layout_View
 	            <div class="copyright">
 	                <div>
 	                <?php echo $this->data['appInfo']['siteName']; ?> &#169; <span id="copyright-year"></span> •
-	                <a href='index-6.html'>Privacy Policy</a>
+	                <a href='/'>Privacy Policy</a>
 	                <!-- {%FOOTER_LINK} -->
 	                </div>
 	            </div>
@@ -500,6 +557,7 @@ class Layout_View
     public function getIndexContent()
     {
     	ob_start();
+    	echo self :: getIndexHeader();
     	?>
     	<!--========================================================
                               CONTENT
@@ -514,7 +572,7 @@ class Layout_View
 			</section>
 			<!-- END Index list -->
 			<!-- What we do -->
-	        <section class="well-xl-4 hr text-center text-sm-left">
+	        <!-- <section class="well-xl-4 hr text-center text-sm-left">
 	            <div class="container">
 	                <h3 class="text-line-2 text-default-3">Pr&oacute;ximos eventos</h3>
 	                <div class="row offset-6">
@@ -548,7 +606,7 @@ class Layout_View
 	                    </div>
 	                </div>
 	            </div>
-	        </section>
+	        </section> -->
 	        <!-- END What we do -->
 	        <!-- About us -->
 	        <section class="well-xl">
@@ -884,7 +942,7 @@ class Layout_View
     {
     	ob_start();
     	?>
-		<title><?php echo $this->data['categoryInfo']['title']; ?> <?php echo $this->data['subcategoryInfo']['name']; ?> | <?php echo $this->data['appInfo']['title']; ?> </title>
+		<title><?php echo $this->data['categoryInfo']['name']; ?> <?php echo $this->data['subcategoryInfo']['name']; ?> | <?php echo $this->data['appInfo']['title']; ?> </title>
 		<meta name="keywords" content="<?php echo $this->data['appInfo']['keywords']; ?>, <?php echo $this->data['categoryInfo']['name'].' '.$this->data['subcategoryInfo']['name']; ?>" />
 		<?php
 		if ($this->data['categoryInfo']['description'])
@@ -931,15 +989,14 @@ class Layout_View
 	public function getCoverContent()
 	{
 		ob_start();
+		echo self::getCommonHeader();
 		?>
-		<?php echo self :: getBackground(); ?>	
-		<div id="main-grid" class='inside cf'>
-			<div class="main-wrapper-bg" style="">
-				<?php echo self :: getMenuLeft(); ?>
-				<?php echo self :: getGridCompanies(); ?>
-			</div>
-			<div class="clear"></div>
-		</div>
+		<!--========================================================
+                              CONTENT
+    	=========================================================-->
+	    <main class="page-content">
+	    	<?php echo self::getGridCompanies(); ?>
+        </main>
 		<?php
 		$coverBody = ob_get_contents();
 		ob_end_clean();
@@ -958,14 +1015,15 @@ class Layout_View
 	{
 		ob_start();
 		?>
-		<div id="main_contents">
+		<!-- Index list -->
+        <section class="text-center">
 			<?php
 			if ($this->data['categoryInfo'])
 			{
 			?>
-			<h1>
+			<h3>
 				<a href="/<?php echo $this->data['categoryInfo']['category_id'].'/'.Tools::slugify($this->data['categoryInfo']['name']); ?>/">
-					<?php echo $this->data['categoryInfo']['name']; ?> in <?php echo $this->data['appInfo']['location']; ?>
+					<?php echo $this->data['categoryInfo']['name']; ?> en <?php echo $this->data['appInfo']['location']; ?>
 				
 				<?php 
 				if ($this->data['subcategoryInfo'])
@@ -976,88 +1034,84 @@ class Layout_View
 				}
 				?>
 				</a>
-			</h1>
+			</h3>
 			<div class="clr"></div>
-			<h3><?php echo $this->data['appInfo']['siteName']; ?></h3>
+			<h4><?php echo $this->data['appInfo']['siteName']; ?></h4>
 			<?php	
 			}
 
 			if ($this->data['locationInfo']['name'])
 			{
 			?>
-			<h1 style="text-align: left;">
+			<h3>
 				<a href="/location/<?php echo $this->data['locationInfo']['location_id'].'/'.Tools::slugify($this->data['locationInfo']['name']); ?>/">
 					<?php echo $this->data['locationInfo']['name']; ?>
 				</a>
-			</h1>
+			</h3>
 				
 			<div class="clr"></div>
-			<h3><?php echo $this->data['appInfo']['siteName']; ?></h3>
+			<h4><?php echo $this->data['appInfo']['siteName']; ?></h4>
 			<?php	
 			}
 			?>
-			<div id="companies-grid" class='inside cf '>
-				<ul class='protips-grid cf'>
-				<?php
-				foreach ($this->data['companies'] as $c)
-				{
-					?>
-					<li class=''>
-						<?php 
-						if ($c['closed'] == 1) 
+			<ul class="row row-no-gutter index-list">
+			<?php
+			foreach ($this->data['companies'] as $company)
+			{
+				?>
+				<li class="col-md-3 col-sm-3">
+					<?php 
+						/*if ($c['closed'] == 1) 
 						{
 							?>
 						<div class="closed">closed</div>
 							<?php 
-						}
+						}*/
  
 						$link = '';
 						if ($this->data['subcategoryInfo']) 
 						{
-							$link = "/company/".$c['category_id']."/".Tools::slugify($c['category'])."/".$this->data['subcategoryInfo']['subcategory_id']."/".Tools::slugify($this->data['subcategoryInfo']['name'])."/".$c['company_id']."/".Tools::slugify($c['name'])."/";
+							$link = "/company/".$company['category_id']."/".Tools::slugify($company['category'])."/".$this->data['subcategoryInfo']['subcategory_id']."/".Tools::slugify($this->data['subcategoryInfo']['name'])."/".$company['company_id']."/".Tools::slugify($company['name'])."/";
 						} else if ($this->data['section'] == 'allEvents' && $this->data['events']) {
-							$link = "/events/".$c['company_id']."/".Tools::slugify($c['company_name'])."/".Tools::slugify($c['date'])."/".$c['event_id']."/".Tools::slugify($c['name'])."/"; 
+							$link = "/events/".$company['company_id']."/".Tools::slugify($company['company_name'])."/".Tools::slugify($c['date'])."/".$c['event_id']."/".Tools::slugify($c['name'])."/"; 
 						} else {
-							$link = "/company/".$c['category_id']."/".Tools::slugify($c['category'])."/".$c['company_id']."/".Tools::slugify($c['name'])."/";
+							$link = "/company/".$company['category_id']."/".Tools::slugify($company['category'])."/".$company['company_id']."/".Tools::slugify($company['name'])."/";
 						}
 						?>
-						<article class='protip'>
-							<header>
-								<?php if ($c['date']) { ?><div class="date"><?php echo Tools::formatMYSQLToFront($c['date']); ?></div><?php } ?>
-								<div class="img-cover">
-									<a href="<?php echo $link; ?>" class="title">	
-									<?php 
-									if ($c['logo'])
-									{
-									?>
-									    <img src="/img-up/companies_pictures/logo/<?php echo $c['logo']; ?>" 
-									        alt="<?php echo $c['name']; ?>" class="protip_li_img"/>
-									<?php
-									}
-									else
-									{
-									?>
-										<img src="/images/default_item_front.jpg" 
-										    alt="<?php echo $c['name']; ?>"  class="protip_li_img"/>
-									<?php
-									}
-									?>
-									</a>
-							    </div>
-							</header>
-							<a href="<?php echo $link; ?>" class="title"><?php echo $c['name']; ?></a>
-							<footer class='cf'>
-								<?php echo $c['description']; ?>
-							</footer>
-						</article>
-					</li>
-					<?php
-				}
-				?>
-				</ul>
-			</div>
-		</div><!-- main sections -->
-		<div class="clr"></div>
+					<?php if ($company['date']) { ?><div class="date"><?php echo Tools::formatMYSQLToFront($c['date']); ?></div><?php } ?>
+					<div class="img-box">
+						<a href="<?php echo $link; ?>">
+	            		<?php
+	            			if (!$company['logo'])
+	            			{
+	            			?>
+	            			<img src="/images/default_item_front.jpg" 
+	            			    alt="<?php echo $company['name']; ?>"
+	    			        />
+	            			<?php
+	            			}
+	            			else
+	            			{
+	            			?>
+	            			<img src="/img-up/companies_pictures/logo/<?php echo $company['logo']; ?>" 
+	            			    alt="<?php echo $company['name']; ?>"
+	    			        />
+	            			<?php
+	            			}
+	            		?>
+            			</a>
+    				</div>
+					<h4><?php echo $company['name']; ?></h4>
+					<p>
+						<?php echo $company['description']; ?>
+					</p>
+					<a class="btn btn-xs btn-primary-1" href="<?php echo $link; ?>">Leer m&aacute;s <span class="material-icons-chevron_right"></span></a>
+				</li>
+				<?php
+			}
+			?>
+			</ul>
+		</section>
 		<?php
 		$gridCompanies = ob_get_contents();
 		ob_end_clean();
@@ -1218,12 +1272,6 @@ class Layout_View
 		<link rel='canonical' href="<?php echo $this->data['appInfo']['url']; ?>" />
 		
 		<?php echo self::getCommonDocuments(); ?>
-		
-		<script type="text/javascript" src="/js/front/swipe.js"></script>
-		<script type="text/javascript" src="/js/front/jquery.swipebox.js"></script>
-		<script type="text/javascript" src="/js/front/init-swipe-companies.js"></script>
-		<script type="text/javascript" src="/js/front/init-swipe-box-companies.js"></script>
-		
 		<?php echo self::getGoogleAnalytics(); ?>
 		<?php
 		if (is_numeric($this->data['company']['general']['latitude']) && is_numeric($this->data['company']['general']['longitude']))
@@ -1231,47 +1279,6 @@ class Layout_View
 			if ($this->data['company']['general']['latitude'] !=  0 && $this->data['company']['general']['longitude'] != 0)
 			{
 			?>
-			<script type="text/javascript"
-					src="https://maps.google.com/maps/api/js?sensor=true">
-			</script>
-			<script type="text/javascript">
-
-			
-			function initialize() {
-				var latlng = new google.maps.LatLng(<?php echo $this->data['company']['general']['latitude']; ?>, <?php echo $this->data['company']['general']['longitude']; ?>);
-						
-				var myOptions = {
-				  zoom: 18,
-				  center: latlng,
-				  mapTypeId: google.maps.MapTypeId.HYBRID
-				};
-						
-				var map = new google.maps.Map(document.getElementById("map_canvas"),
-					myOptions);
-					
-				var contentString = <?php echo self::getMapCompanyGlobe(); ?>
-					
-				var infowindow = new google.maps.InfoWindow({
-					content: contentString,
-					maxWidth: 250
-				});
-		
-				var marker = new google.maps.Marker({
-					position: latlng,
-					title:"<?php echo $this->data['company']['seo']['title']; ?>"
-				});
-					  
-				marker.setMap(map);
-				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.open(map,marker);
-				});			  
-			}
-				
-			$(window).load(function() {
-				initialize();
-			});
-			
-			</script>
 			<?php
 			}
 		}
@@ -1281,42 +1288,6 @@ class Layout_View
         return $head;
     }
 	
-    /**
-     * getMapCompanyGlobe
-     * 
-     * returns the item of the globe for the map, by a given lat and long, it 
-     * also shows the logo, title and description, as links
-     * 
-     * @return string
-     */
-    public function getMapCompanyGlobe()
-    {
-    	ob_start();
-    	?>
-	    '<div class="map-company-globe">' +
-		    '<div class="map-company-globe-box">' +
-			    '<div class="header">' +
-				    '<a href="/company/<?php echo $this->data['company']['general']['category'].'/'.Tools::slugify($this->data['company']['general']['category_name']).'/'.$this->data['company']['general']['company_id'].'/'.Tools::slugify($this->data['company']['general']['name']).'/'; ?>">' +
-				    '	<?php echo $this->data['company']['general']['name']; ?>' +
-				    '</a>' +
-			    '</div>' +
-			    '<div class="content">' +
-				    '<div class="left">' +
-					    '<a href="/company/<?php echo $this->data['company']['general']['category'].'/'.Tools::slugify($this->data['company']['general']['category_name']).'/'.$this->data['company']['general']['company_id'].'/'.Tools::slugify($this->data['company']['general']['name']).'/'; ?>">' +
-					    	'<img alt="<?php echo $this->data['company']['general']['name']; ?>" src="/img-up/companies_pictures/logo/<?php echo $this->data['company']['logo']; ?>">'+
-					    	'<?php echo trim(preg_replace('/\s+/', ' ',str_replace(array("'"), "",$this->data['company']['seo']['description']))); ?>' +
-					    '</a>'+
-				    '</div>' +
-				    '<div class="clr"></div>'+
-			    '</div>' +
-			    '<div class="clr"></div>'+
-		    '</div>'+
-	    '</div>';
-	    <?php 
-	    $globe = ob_get_contents();
-	    ob_end_clean();
-	    return $globe;
-    }
     
     /**
      * getCompanyContent
@@ -1329,24 +1300,9 @@ class Layout_View
 	public function getCompanyContent()
 	{
 		ob_start();
+		echo self::getCommonHeader();
 		?>
-		<?php echo self :: getBackground(); ?>	
-		<div id="main-grid" class='inside cf'>
-			<div class="main-wrapper-bg" style="">
-				<div id="x-active-preview-pane">
-					<div class="inside cf x-protip-pane">
-						<div class="cf fullpage protip-single tip-container x-protip-content" id="x-protip" >
-							<?php echo self :: getCompanyArticle(); ?>
-							<?php echo self :: getSideBar(); ?>
-							<div class="clr"></div>
-							<!-- comments here -->
-						</div><!-- /x-protip -->
-					</div><!-- /inside cf x-protip-pane -->
-				</div><!-- /x-active-preview-pane -->
-				<div class="clr"></div>
-			</div>
-			<div class="clr"></div>
-		</div>
+		<?php echo self :: getCompanyArticle(); ?>
 		<?php
 		$content = ob_get_contents();
 		ob_end_clean();
@@ -1365,127 +1321,254 @@ class Layout_View
 	{
 		ob_start();
 		?>
-		<article class="tip-panel" id="mnwcog">
-			<header class="tip-header">
-				<h1 class="tip-title" id="companyName"><?php echo $this->data['company']['general']['name']; ?></h1>
-				<p class="views">
-					<span>
-						<?php echo $this->data['company']['general']['category_name']; ?>
-						<?php 
-						if ($this->data['company']['subcategoryInfo'])
-						{
-							echo " / ".$this->data['company']['subcategoryInfo']['name'];
-						}
-						
-						if ($this->data['event']['detail'])
-						{
-							echo Tools::formatMYSQLToFront($this->data['event']['detail']['date']);
-							if ($this->data['event']['detail']['date'].' hrs')
-								echo ' / '.Tools::formatHourMYSQLToFront($this->data['event']['detail']['time']);
-						}
-						?> 
-					</span>
-				</p>
-				<?php 
-				if ($this->data['belongCompany'])
-				{
-					$link = "/company/".$this->data['belongCompany']['category']."/".Tools::slugify($this->data['belongCompany']['categoryName'])."/".$this->data['belongCompany']['belongCompanyId']."/".Tools::slugify($this->data['belongCompany']['belongCompanyName'])."/";
-					?>
-				<div>
-					<div class="belong-company">
-						<img alt="Ukraine" src="/img-up/companies_pictures/logo/<?php echo $this->data['belongCompany']['logo']; ?>">
-						<div class="belong-company-layer">
-							<a href="<?php echo $link; ?>">
-								<img alt="" class="belong-company-logo" src="/img-up/companies_pictures/logo/<?php echo $this->data['belongCompany']['logo']; ?>">
-							</a>
-							<div class="bc-right">
-								<h1 itemprop="name"><a href="<?php echo $link; ?>"><?php echo $this->data['belongCompany']['info']['title']; ?></a></h1>
-								<p class="location">
-									<?php echo $this->data['belongCompany']['info']['description']; ?>
-								</p>
-							</div>
-							<div class="user-pro-tip cf">
-								<a class="pro-tip-number">
-									<span><?php echo $this->data['belongCompany']['totalEvents']; ?></span>
-									Events
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-					<?php
-				}	
-				?>			
-			</header>
-					
-			<div class="tip-content">
-				<div id="slider-box" class='swipe-companies'>
-					<div id="inner-slider" class='swipe-wrap-companies'>
-					<?php			
-					if ($this->data['company']['sliders'])
-					{
-						foreach($this->data['company']['sliders'] as $s)
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/mx_MX/all.js#xfbml=1";
+		  fjs.parentNode.insertBefore(js, fjs);
+		  $('.messageBody').attr('color', '#fff');
+		}(document, 'script', 'facebook-jssdk'));</script>
+		<!--========================================================
+                              CONTENT
+	    =========================================================-->
+	    <main class="page-content">
+		    <!-- Blog -->
+	        <section class="well-xl-15 hr text-center text-sm-left">
+	            <div class="container">
+	                <h3 class="text-line-2 text-default-3"><?php echo $this->data['company']['general']['name']; ?></h3>
+	                <p class="views">
+						<span>
+							<?php echo $this->data['company']['general']['category_name']; ?>
+							<?php 
+							if ($this->data['company']['subcategoryInfo'])
+							{
+								echo " / ".$this->data['company']['subcategoryInfo']['name'];
+							}
+							
+							if ($this->data['event']['detail'])
+							{
+								echo Tools::formatMYSQLToFront($this->data['event']['detail']['date']);
+								if ($this->data['event']['detail']['date'].' hrs')
+									echo ' / '.Tools::formatHourMYSQLToFront($this->data['event']['detail']['time']);
+							}
+							?> 
+						</span>
+					</p>
+	                
+	                <ul class="list-2">
+	                    <li>
+	                    	<section>
+					            <!-- Swiper -->
+					            <div class="swiper-container swiper-slider" data-height="45%" data-min-height="200px" data-autoplay="false" data-loop="true">
+					                <div class="swiper-wrapper text-center">
+				                	<?php			
+									if ($this->data['company']['sliders'])
+									{
+										foreach($this->data['company']['sliders'] as $s)
+										{
+										?>
+										<div class="swiper-slide" data-slide-bg="/img-up/companies_pictures/sliders/<?php echo $s['slider']; ?>" alt="<?php echo $this->data['company']['general']['name']; ?>" title="<?php echo $this->data['company']['general']['name']; ?>"></div>
+										<?php
+										}
+									}
+									?>
+					                </div>
+					                <!-- Slider Navigation -->
+					                <div class="swiper-button-prev"></div>
+					                <div class="swiper-button-next"></div>
+					            </div>
+					            <!-- END Swiper -->
+					        </section>
+	                        <h4><?php echo $this->data['company']['general']['name']; ?></h4>
+	                        <div>
+	                            <!-- <time datetime="2011-11"><span class="fa fa-calendar"></span><a href="index-4.html#">June 13, 2016</a>
+	                            </time> -->
+	                            <?php if ($this->data['company']['social']['facebook']){ ?><p><span class="fa-facebook-square"></span><a href="https://www.facebook.com/<?php echo $this->data['company']['social']['facebook']; ?>" target="_blank">Facebook</a></p><?php } ?>
+	                            <?php if ($this->data['company']['social']['tuit_url']){ ?><p><span class="fa-twitter"></span><a href="https://twitter.com/<?php echo $this->data['company']['social']['tuit_url']; ?>" target="_blank">Twitter</a></p><?php } ?>
+	                            <?php if ($this->data['company']['social']['tripadvisor']){ ?><p><span class="fa-tripadvisor"></span><a href="https://www.tripadvisor.com/<?php echo $this->data['company']['social']['tripadvisor']; ?>" target="_blank">Tripadvisor</a></p><?php } ?>
+	                            <?php if ($this->data['company']['general']['website']){ ?><p><span class="fa-globe"></span><a href="<?php echo $this->data['company']['general']['website']; ?>" target="_blank">Website</a></p><?php } ?>
+	                            <?php 
+	                            foreach ($this->data['company']['emails'] as $email)
+	                            {
+	                            	?>
+	                            <p><span class="fa-at"></span><a href="mailto:<?php echo $email['e_mail']; ?>" target="_blank"><?php echo $email['e_mail']; ?></a></p>
+	                            	<?php
+	                            }
+	                            ?>
+	                            <?php 
+	                            foreach ($this->data['company']['phones'] as $phone)
+	                            {
+	                            	?>
+	                            <p><span class="fa-phone"></span><a href="tel:<?php echo $phone['telephone']; ?>" target="_blank"><?php echo $phone['telephone']; ?></a></p>
+	                            	<?php
+	                            }
+	                            ?>
+	                        </div>
+	                        
+	                        <p><?php echo stripslashes($this->data['company']['general']['description']); ?></p>
+	                    </li>
+	                </ul>
+	            </div>
+	        </section>
+	        <!-- END Blog -->
+	        <!-- Marketing services -->
+	        <section class="well-xl-7 text-center text-md-left">
+	            <div class="container">
+	                <div class="row offset-6" data-lightbox="gallery" >
+	                	<?php
+						foreach($this->data['company']['gallery'] as $g)
 						{
 						?>
-						<div>
-							<img src="/img-up/companies_pictures/sliders/<?php echo $s['slider']; ?>"
-								alt="<?php echo $this->data['company']['general']['name']; ?>" 
-								title="<?php echo $this->data['company']['general']['name']; ?>" />
-						</div>
+							<div class="col-md-3 col-sm-6 wow fadeInLeft">
+								<a href="/img-up/companies_pictures/original/<?php echo $g['picture']; ?>"  data-lightbox="image" class="thumb thumb-size">
+		                        	<img width="270" height="268" alt="<?php echo $this->data['company']['general']['name']; ?>" src="/img-up/companies_pictures/galery/<?php echo $g['picture']; ?>">
+		                        	<span class="thumb__overlay"></span>
+		                        </a>
+		                    </div>
 						<?php
 						}
-					}
-					?>				
-					</div>
-				</div>
-				<div class="clr"></div>
-				<!--<h3>Description</h3>-->
-				<div id="description_prev">
-					<?php echo stripslashes($this->data['company']['general']['description']); ?>
-				</div>
-									
-				<div id="company-gallerys">
-					<div id="extra-content-box">
-						<div id="extra-content">
-							<div id="company-gallery">
-							<?php
-							foreach($this->data['company']['gallery'] as $g)
+						?>
+	                </div>
+	            </div>
+	        </section>
+	        
+	        <!-- What we do -->
+	        <section class="well-xl-4 hr text-center text-sm-left">
+	            <div class="container">
+	                <div class="row offset-6">
+	                	<div class="col-md-4 col-sm-6 offset-2">
+	                        <?php 
+							if ($this->data['company']['subcategoryInfo'])
 							{
-							?>
-								<div class="image">		
-									<a href="/img-up/companies_pictures/original/<?php echo $g['picture']; ?>"
-											class="swipebox" rel="<?php echo $general['name']; ?>">
-										<img src="/img-up/companies_pictures/galery/<?php echo $g['picture']; ?>" 
-												alt="<?php echo $this->data['company']['general']['name']; ?>">
-									</a>
-								</div>
-							<?php
+								$link = "/".$this->data['company']['general']['category']."/".Tools::slugify($this->data['company']['general']['category_name'])."/".$this->data['company']['subcategoryInfo']['subcategory_id']."/".Tools::slugify($this->data['company']['subcategoryInfo']['name'])."/";
+								?>
+							<ul class="marked-list">
+								<a class="feature-jobs track" data-action="upgrade team" data-from="protip page" href="<?php echo $link; ?>">
+									<h4><?php echo $this->data['company']['subcategoryInfo']['name']; ?></h4>
+								</a>
+								<?php
+								foreach ($this->data['companies'] as $c)
+								{
+									$link = "/company/".$this->data['company']['general']['category']."/".Tools::slugify($this->data['company']['general']['category_name'])."/".$this->data['company']['subcategoryInfo']['subcategory_id']."/".Tools::slugify($this->data['company']['subcategoryInfo']['name'])."/".$c['company_id']."/".Tools::slugify($c['name'])."/";
+								?>
+								<li><a href="<?php echo $link; ?>"><?php echo $c['name']; ?></a></li>
+								<?php 
+								}
+								?>
+							</ul>
+								<?php
 							}
 							?>
-							<div class="clr"></div>
+							
+							<?php 
+							if ($this->data['subcategories'])
+							{
+								$link = "/".$this->data['company']['general']['category']."/".Tools::slugify($this->data['company']['general']['category_name'])."/";
+								?>
+							<ul class="marked-list">
+								<a class="feature-jobs track" data-action="upgrade team" data-from="protip page" href="<?php echo $link; ?>">
+									<h4><?php echo $this->data['company']['general']['category_name']; ?></h4>
+								</a>
+								<?php
+								foreach ($this->data['subcategories'] as $s)
+								{
+									$link = "/".$this->data['company']['general']['category']."/".Tools::slugify($this->data['company']['general']['category_name'])."/".$s['subcategory_id']."/".Tools::slugify($s['name'])."/";
+								?>
+								<li><a href="<?php echo $link;?>"><?php echo $s['name']; ?></a></li>
+								<?php 
+								}
+								?>
+							</ul>
+								<?php
+							}
+							?>
+	                    </div>
+	                	
+	                    <div class="col-md-4 col-sm-6 offset-8">
+	                        <img width="270" height="268" alt="" src="/img-up/companies_pictures/logo/<?php echo $this->data['company']['logo']; ?>">
+	                        <h4><a href="index.html#">Cont&aacute;cto</a></h4>
+	                        <p class="offset-7 inset-2">
+	                            <?php echo stripslashes($this->data['company']['seo']['description']); ?>
+	                        </p>
+	                        <br />
+	                        <?php if ($this->data['company']['general']['website']){ ?><p><span class="fa-globe"></span> <a href="<?php echo $this->data['company']['general']['website']; ?>" target="_blank"><?php echo $this->data['company']['general']['website']; ?></a></p><?php } ?>
+                            <?php 
+                            foreach ($this->data['company']['emails'] as $email)
+                            {
+                            	?>
+                            <p><span class="fa-at"></span> <a href="mailto:<?php echo $email['e_mail']; ?>" target="_blank"><?php echo $email['e_mail']; ?></a></p>
+                            	<?php
+                            }
+                            ?>
+                            <?php 
+                            foreach ($this->data['company']['phones'] as $phone)
+                            {
+                            ?>
+                            <p><span class="fa-phone"></span> <a href="tel:<?php echo $phone['telephone']; ?>" target="_blank"><?php echo $phone['telephone']; ?></a></p>
+                            <?php
+                            }
+	                        ?>
+	                    </div>
+	                    <?php
+						if ($this->data['company']['social']['facebook'])
+						{
+						?>
+	                    <div class="col-md-4 col-sm-6 wow fadeInLeft">
+							<div class="fb-like-box" id="facebook-companies" data-href="http://www.facebook.com/<?php echo $this->data['company']['social']['facebook']; ?>"
+									data-width="300" data-height="400" data-show-faces="true"
+									data-colorscheme="dark" style="background-color: #373737;" 
+									data-stream="true" data-show-border="false" data-header="false">
 							</div>
-						</div>
-					</div>
-											
-					<div class="clr"></div>
-				</div>
-				<div class="clr"></div>
-				<!--<h3>Videos</h3>-->
-				<?php
-				if (is_numeric($this->data['company']['general']['latitude']) && is_numeric($this->data['company']['general']['longitude']))
+	                    </div>
+	                    <?php	
+						}
+						?>
+	                </div>
+	            </div>
+	        </section>
+	        <!-- END What we do -->
+	        
+	        <!-- END Marketing services -->
+	    	<?php
+			if (is_numeric($this->data['company']['general']['latitude']) && is_numeric($this->data['company']['general']['longitude']))
+			{
+				if ($this->data['company']['general']['latitude'] !=  0 && $this->data['company']['general']['longitude'] != 0)
 				{
-					if ($this->data['company']['general']['latitude'] !=  0 && $this->data['company']['general']['longitude'] != 0)
-					{
-				?>					
-				<div id="map_canvas"></div>
-				<?php 
-					}
+			?>
+	    	<!-- RD Google Map -->
+	        <section>
+	            <div class="rd-google-map">
+	                <div id="google-map" class="rd-google-map__model" data-zoom="18" data-x="<?php echo $this->data['company']['general']['longitude']; ?>"
+	                     data-y="<?php echo $this->data['company']['general']['latitude']; ?>"></div>
+	                <ul class="rd-google-map__locations">
+	                	<li data-x="<?php echo $this->data['company']['general']['longitude']; ?>" data-y="<?php echo $this->data['company']['general']['latitude']; ?>">
+	                		<div class="map-info-item">
+	                			<div class="map-info-image">
+	                				<a href="/company/<?php echo $this->data['company']['general']['category'].'/'.Tools::slugify($this->data['company']['general']['category_name']).'/'.$this->data['company']['general']['company_id'].'/'.Tools::slugify($this->data['company']['general']['name']).'/'; ?>">
+								    	<img alt="<?php echo $name; ?>" src="/img-up/companies_pictures/logo/<?php echo $this->data['company']['logo']; ?>">
+								    </a>
+	                			</div>
+	                			<div class="map-info">
+	                				<a href="/company/<?php echo $this->data['company']['general']['category'].'/'.Tools::slugify($this->data['company']['general']['category_name']).'/'.$this->data['company']['general']['company_id'].'/'.Tools::slugify($this->data['company']['general']['name']).'/'; ?>">
+	                					<h4><?php echo $this->data['company']['seo']['title']; ?></h4>
+	                				</a>
+	                				<a href="/company/<?php echo $this->data['company']['general']['category'].'/'.Tools::slugify($this->data['company']['general']['category_name']).'/'.$this->data['company']['general']['company_id'].'/'.Tools::slugify($this->data['company']['general']['name']).'/'; ?>">
+	                					<?php echo trim(preg_replace('/\s+/', ' ',str_replace(array("'"), "",$this->data['company']['seo']['description']))); ?>
+	                				</a>
+	                			</div>
+	                		</div>
+	                    </li>
+	                </ul>
+	            </div>
+	        </section>
+	        <!-- END RD Google Map -->
+	        <?php 
 				}
-				?>					
-				<div class="clr"></div>
-								
-			</div> <!-- /tip-content -->
-		</article> <!--/article tip-panel -->
+			}
+			?>
+		</main>
 		<?php
 		$article = ob_get_contents();
 		ob_end_clean();
@@ -1785,100 +1868,12 @@ class Layout_View
 		<link rel='canonical' href="<?php echo $this->data['appInfo']['url']; ?>" />
 		<?php echo self::getCommonDocuments(); ?>
 		<?php echo self::getGoogleAnalytics(); ?>
-			
-		<script type="text/javascript"
-			src="https://maps.google.com/maps/api/js?sensor=true">
-		</script>
-				
-		<script type="text/javascript">
-		function initialize() {
-					
-			var locations = [
-			<?php
-			$i = 0;
-			
-			foreach ($this->data['companies'] as $c)
-			{
-				$i++;
-				?>
-				[<?php echo self::getMapGeneralGlobe($c['category'], $c['category_name'], $c['company_id'], $c['name'], $c['logo'], $c['seo_description']); ?>, <?php echo $c['latitude']; ?>, <?php echo $c['longitude']; ?>, <?php echo $i; ?>],
-				<?php
-			}
-			?>
-			];
-		
-			var map = new google.maps.Map(document.getElementById('general_map'), {
-			  zoom: 10,
-			  center: new google.maps.LatLng(20.6348323822,-87.0751495361),
-			  mapTypeId: google.maps.MapTypeId.ROADMAP
-			});
-		
-			var infowindow = new google.maps.InfoWindow();
-	
-			var marker, i;
-		
-			for (i = 0; i < locations.length; i++) {  
-			  	marker = new google.maps.Marker({
-					position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-					map: map
-			  });
-		
-				  google.maps.event.addListener(marker, 'click', (function(marker, i) {
-					return function() {
-						infowindow.setContent(locations[i][0]);
-						infowindow.open(map, marker);
-					}
-				  })(marker, i));
-			}
-		}
-			
-		$(document).ready(function() {
-			initialize();
-		});
-		</script>
         <?php
         $head = ob_get_contents();
         ob_end_clean();
         return $head;
     }	
 	
-    /**
-     * getMapCompanyGlobe
-     *
-     * retunrs the globe item where it's displayed the logo, the description and
-     * the title of the companies, also it's a link for it's company view
-     *
-     * @return string
-     */
-    public function getMapGeneralGlobe($categoryId, $categoryName, $companyId, $name, $logo, $description)
-    {
-    	ob_start();
-    	?>
-	    '<div class="map-company-globe">' +
-		    '<div class="map-company-globe-box">' +
-			    '<div class="header">' +
-				    '<a href="/company/<?php echo $categoryId.'/'.Tools::slugify($categoryName).'/'.$companyId.'/'.Tools::slugify($name).'/'; ?>">' +
-				    	'<?php echo $name; ?>' +
-				    '</a>' +
-			    '</div>' +
-			    '<div class="content">' +
-				    '<div class="left">' +
-					    '<a href="/company/<?php echo $categoryId.'/'.Tools::slugify($categoryName).'/'.$companyId.'/'.Tools::slugify($name).'/'; ?>">' +
-					    	'<img alt="<?php echo $name; ?>" src="/img-up/companies_pictures/logo/<?php echo $logo; ?>">'+
-					    '<?php echo trim(preg_replace('/\s+/', ' ',str_replace(array("'"), "",$description))); ?>'+
-					    '</a>'+
-				    '</div>' +
-				    '<div class="clr"></div>'+
-			    '</div>' +
-			    '<div class="clr"></div>'+
-		    '</div>'+
-	    '</div>'
-	    <?php 
-	    $globe = ob_get_contents();
-	    ob_end_clean();
-	    return $globe;
-    }
-
     /**
      * getMapContent
      * 
@@ -1889,21 +1884,54 @@ class Layout_View
     public function getMapContent()
     {
     	ob_start();
+    	echo self::getCommonHeader();
     	?>
-    	<?php echo self :: getBackground(); ?>
-    	<div id="main-grid" class='inside cf'>
-			<div class="main-wrapper-bg" style="">
-		    	<div id="wrapper">
-		    		<div id="content">
-		    			<div id="box_map">
-		    				<div id="general_map"></div>
-		    			</div>
-		    		</div>
-		    		<div class="clr"></div>
-		    	</div>
-    		</div>
-			<div class="clr"></div>
-		</div>	
+    	<main class="page-content">
+    		<!-- About us -->
+	        <section class="well-xl">
+	            <div class="container text-center">
+	                <h2 class="text-line"><?php echo $this->data['appInfo']['siteName']; ?></h2>
+	                <p class="$default-7 font-size-1 offset-1">
+	                    <?php echo $this->data['appInfo']['description']; ?>
+	                </p>
+	            </div>
+	        </section>
+	        <!-- END About us -->
+    		<!-- RD Google Map -->
+	        <section>
+	            <div class="rd-google-map">
+	                <div id="google-map" class="rd-google-map__model" data-zoom="16" data-x="-87.069887"
+	                     data-y="20.631863"></div>
+	                <ul class="rd-google-map__locations">
+	                	<?php 
+	                	foreach ($this->data['companies'] as $company)
+	                	{
+	                		?>
+	                	<li data-x="<?php echo $company['longitude']; ?>" data-y="<?php echo $company['latitude']; ?>">
+	                		<div class="map-info-item">
+	                			<div class="map-info-image">
+	                				<a href="/company/<?php echo $company['category'].'/'.Tools::slugify($company['category_name']).'/'.$company['company_id'].'/'.Tools::slugify($company['name']).'/'; ?>">
+								    	<img alt="<?php echo $name; ?>" src="/img-up/companies_pictures/logo/<?php echo $company['logo']; ?>">
+								    </a>
+	                			</div>
+	                			<div class="map-info">
+	                				<a href="/company/<?php echo $company['category'].'/'.Tools::slugify($company['category_name']).'/'.$company['company_id'].'/'.Tools::slugify($company['name']).'/'; ?>">
+	                					<h4><?php echo $company['name']; ?></h4>
+	                				</a>
+	                				<a href="/company/<?php echo $company['category'].'/'.Tools::slugify($company['category_name']).'/'.$company['company_id'].'/'.Tools::slugify($company['name']).'/'; ?>">
+	                					<?php echo trim(preg_replace('/\s+/', ' ',str_replace(array("'"), "",$company['seo_description']))); ?>
+	                				</a>
+	                			</div>
+	                		</div>
+	                    </li>
+	                		<?php
+	                	}
+	                	?>
+	                </ul>
+	            </div>
+	        </section>
+	        <!-- END RD Google Map -->
+    	</main>
     	<?php
     	$coverBody = ob_get_contents();
     	ob_end_clean();
