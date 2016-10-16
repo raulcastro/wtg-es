@@ -18,9 +18,9 @@ switch ($_GET['option'])
 		$uploader 	= new Media_Model($allowedExtensions, $sizeLimit);
 		
 		$savePath 		= $root.'/img-up/companies_pictures/original/';
-		$medium 		= $root.'/img-up/companies_pictures/sliders-medium/';
+		$medium 		= $root.'/img-up/companies_pictures/medium_sliders/';
 		$pre	  		= Tools::slugify($_POST['companyName']);
-		$mediumWidth 	= 640;
+		$mediumWidth 	= 1170;
 		
 		if ($result = $uploader->handleUpload($savePath, $pre))
 		{
@@ -54,8 +54,8 @@ switch ($_GET['option'])
 		
 		if (!empty($_POST))
 		{
-			$dstWidth = 640;
-			$dstImageHeight = 255;
+			$dstWidth = 1170;
+			$dstImageHeight = 526;
 			 
 			$source		 = $root.'/img-up/companies_pictures/original/'.$_POST['imgId'];
 			$destination = $root.'/img-up/companies_pictures/sliders/'.$_POST['imgId'];

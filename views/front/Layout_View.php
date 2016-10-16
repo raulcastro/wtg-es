@@ -747,13 +747,21 @@ class Layout_View
 				if ($a['link'])
 				$link = $a['link'];
 				?>
-				<div class="swiper-slide" data-slide-bg="/img-up/main-gallery/front/<?php echo $a['name']; ?>" alt="<?php echo $a['title']; ?>">
+				<div class="swiper-slide" data-slide-bg="/img-up/main-gallery/original/<?php echo $a['name']; ?>" alt="<?php echo $a['title']; ?>">
                     <div class="swiper-slide-caption">
                         <div class="container">
                             <p>
                                 <?php echo $a['promos']; ?>
                             </p>
+                            <?php 
+                            if ($a['link'])
+                            {
+                            	?>
                             <a class="btn btn-md btn-primary" href="<?php echo $a['link']; ?>">Leer m&aacute;s</a>
+                            	<?php
+                            }
+                            ?>
+                            
                         </div>
                     </div>
                 </div>

@@ -268,9 +268,6 @@ class Layout_View
 						<li><a <?php if ($_GET['section'] == 1) echo $active; ?> href="/admin/grid/">Profile</a></li>
 						<li><a <?php if ($_GET['section'] == 2) echo $active; ?> href="/admin/add-company/">Add Company</a></li>
 						<li><a <?php if ($_GET['section'] == 3) echo $active; ?> href="/admin/grid/ ">Companies</a></li>
-						<li><a <?php if ($_GET['section'] == 4) echo $active; ?> href="#">Emails</a></li>
-						<li><a <?php if ($_GET['section'] == 5) echo $active; ?> href="/admin/members/">Members</a></li>
-						<li><a <?php if ($_GET['section'] == 6) echo $active; ?> href="#">Tasks</a></li>
 						<li><a <?php if ($_GET['section'] == 7) echo $active; ?> href="/admin/main-gallery/">Main Gallery</a></li>
 						<li><a <?php if ($_GET['section'] == 8) echo $active; ?> href="/admin/videos/">Videos</a></li>
 						<li><a <?php if ($_GET['section'] == 9) echo $active; ?> href="/admin/settings/">Settings</a></li>
@@ -781,7 +778,7 @@ class Layout_View
 				<div class="clr"></div>
 			</header>
 			<h1>Main slider</h1>
-			<p>(970px / 300px)</p>
+			<p>(2048px / 1100px)</p>
 			
 			<div class="slider-box">
 				<div class="main-slider-upload">
@@ -1476,7 +1473,7 @@ class Layout_View
 				
 				<div class="mediaSections" >
 					<h1>Sliders</h1>
-					<p>(640px / 255px)</p>
+					<p>(1170px / 526px)</p>
 					
 					<div class="slider-box">
 						<div class="company-slider-uploader">

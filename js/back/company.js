@@ -85,7 +85,7 @@ $(document).ready(function()
 	
 	function createDncLogo(image)
 	{
-		source = '/img-up/companies_pictures/logo-medium/'+image;
+		source = '/img-up/companies_pictures/medium/'+image;
 		$('#cropLogo').attr('src', source);
 		dncLogo = $('#cropLogo').dragncrop({
 			instruction: false,
@@ -138,7 +138,7 @@ $(document).ready(function()
 	
 	function createDncSlider(image)
 	{
-		source = '/img-up/companies_pictures/sliders-medium/'+image;
+		source = '/img-up/companies_pictures/medium_sliders/'+image;
 		$('#crop-company-slider').attr('src', source);
 		dncSlider = $('#crop-company-slider').dragncrop({
 			instruction: false,
