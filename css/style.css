@@ -10876,3 +10876,25 @@ img.mfp-img {
  	line-height: 18px;
  	margin-top: 10px!important;
  }
+ 
+ /*******+ get Size ****/
+ #getSize {
+ 	border: 2px solid #111;
+ 	width: 100px;
+ 	height: 65px;
+ 	padding: 5px;
+ 	color: #000;
+ 	text: center;
+    background:rgba(40,203,255,.98);
+    border-radius: 5px;
+    z-index: 9999;
+    font-size: 12px;
+}
+ 
+#getSize p {
+	text-align: center;
+}
+ 
+#getSize p span {
+	font-weight: bold;
+}

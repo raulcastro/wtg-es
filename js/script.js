@@ -631,6 +631,7 @@ function isIE() {
 })(jQuery);
 
 
+
 /**
  * @module       Progress Bar
  * @description  Enables Progress Bar Plugin
@@ -722,3 +723,38 @@ function isIE() {
         });
     }
 })(jQuery);
+
+
+jQuery.fn.getSize = function(parent) {
+	if (parent) {
+        parent = this.parent();
+    } else {
+        parent = window;
+    }
+	/*alert($(parent).height());*/
+	
+	$('#getSize').find("p span:first").text($(window).width()+' px');
+	$('#getSize').find("p span:last").text($(window).height()+' px');
+	
+    this.css({
+        "position": "absolute",
+        "top": ((($(parent).height() - this.outerHeight()) / 2) + $(parent).scrollTop() + "px"),
+        "left": ((($(parent).width() - this.outerWidth()) / 2) + $(parent).scrollLeft() + "px")
+    });
+    
+    return this;
+}
+
+;
+(function ($) {
+	$('#getSize').getSize();
+})(jQuery);
+
+
+$(window).scroll(function() {
+	$('#getSize').getSize();
+});
+
+$(window).resize(function() {
+	$('#getSize').getSize();
+});
