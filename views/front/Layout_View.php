@@ -254,7 +254,7 @@ class Layout_View
 	        <!-- END RD Navbar -->
 	        <section>
 	            <!-- Swiper -->
-	            <div class="swiper-container swiper-slider" data-height="53.75609756097561%" data-min-height="400px" data-autoplay="false" data-loop="false">
+	            <div class="swiper-container swiper-slider" data-height="53.75609756097561%" data-min-height="100px" data-autoplay="false" data-loop="false">
 	                <div class="swiper-wrapper text-center">
 	                	<?php echo self::getSwipes(); ?>
 	                </div>
@@ -264,9 +264,6 @@ class Layout_View
 	                    </li>
 	                    <li>
 	                        <a class="icon-xs fa-facebook-square" target="_blank" href="http://www.facebook.com/<?php echo $this->data['appInfo']['facebook']; ?>"></a>
-	                    </li>
-	                    <li>
-	                        <a class="icon-xs fa-pinterest" target="_blank" href="http://www.pinterest.com/<?php echo $this->data['appInfo']['pinterest']; ?>"></a>
 	                    </li>
 	                    <li>
 	                        <a class="icon-xs fa-youtube" target="_blank" href="http://www.youtube.com/user/<?php echo $this->data['appInfo']['youtube']; ?>"></a>
@@ -567,7 +564,6 @@ class Layout_View
 	        <!-- Index list -->
 	        <section class="text-center">
 	            <ul class="row row-no-gutter index-list">
-		            
 	                <?php echo self :: getItemsPromoted(); ?>
 				</ul>
 			</section>

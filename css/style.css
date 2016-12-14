@@ -9439,7 +9439,7 @@ html.boxed .rd-navbar--is-clone {
 .swiper-button-next {
   border-radius: 50%;
   position: absolute;
-  top: 87.8%;
+  top: 80%;
   width: 35px;
   height: 35px;
   z-index: 1;
@@ -10889,6 +10889,7 @@ img.mfp-img {
     border-radius: 5px;
     z-index: 9999;
     font-size: 12px;
+    display: none;
 }
  
 #getSize p {
