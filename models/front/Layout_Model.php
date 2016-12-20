@@ -209,6 +209,7 @@ class Layout_Model
 			$query = 'SELECT * 
 					FROM categories
 			        WHERE category_id = '.$category;
+// 			echo $query;
 			return $this->db->getRow($query);
 		}
 		catch (Exception $e)
@@ -240,6 +241,7 @@ class Layout_Model
 				GROUP BY cs.subcategory	
 				ORDER BY s.name ASC';
 	
+// 			echo $query;
 			return $this->db->getArray($query);
 		}
 		catch (Exception $e)
@@ -301,7 +303,6 @@ class Layout_Model
 		$subcategory = (int) $subcategory;
 		try
 		{
-			$category = (int) $category;
 			$query = 'SELECT *
 					FROM subcategories
 			        WHERE subcategory_id = '.$subcategory;

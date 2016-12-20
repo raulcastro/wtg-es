@@ -949,9 +949,9 @@ class Layout_View
 		<title><?php echo $this->data['categoryInfo']['name']; ?> <?php echo $this->data['subcategoryInfo']['name']; ?> | <?php echo $this->data['appInfo']['title']; ?> </title>
 		<meta name="keywords" content="<?php echo $this->data['appInfo']['keywords']; ?>, <?php echo $this->data['categoryInfo']['name'].' '.$this->data['subcategoryInfo']['name']; ?>" />
 		<?php
-		if ($this->data['categoryInfo']['description'])
+		if (isset($this->data['categoryInfo']['description']))
 		{
-			if ($subcategory['description'])
+			if (isset($subcategory['description']))
 			{
 			?>
 		<meta name="description" content="<?php echo $subcategory['description']; ?>">
@@ -1022,7 +1022,7 @@ class Layout_View
 		<!-- Index list -->
         <section class="text-center">
 			<?php
-			if ($this->data['categoryInfo'])
+			if (isset($this->data['categoryInfo']))
 			{
 			?>
 			<h3>
@@ -1030,7 +1030,7 @@ class Layout_View
 					<?php echo $this->data['categoryInfo']['name']; ?> en <?php echo $this->data['appInfo']['location']; ?>
 				
 				<?php 
-				if ($this->data['subcategoryInfo'])
+				if(isset($this->data['subcategoryInfo']))
 				{
 					?>
 					 / <?php echo $this->data['subcategoryInfo']['name']; ?>
@@ -1044,7 +1044,7 @@ class Layout_View
 			<?php	
 			}
 
-			if ($this->data['locationInfo']['name'])
+			if (isset($this->data['locationInfo']['name']))
 			{
 			?>
 			<h3>
@@ -1073,16 +1073,16 @@ class Layout_View
 						}*/
  
 						$link = '';
-						if ($this->data['subcategoryInfo']) 
+						if (isset($this->data['subcategoryInfo'])) 
 						{
 							$link = "/company/".$company['category_id']."/".Tools::slugify($company['category'])."/".$this->data['subcategoryInfo']['subcategory_id']."/".Tools::slugify($this->data['subcategoryInfo']['name'])."/".$company['company_id']."/".Tools::slugify($company['name'])."/";
-						} else if ($this->data['section'] == 'allEvents' && $this->data['events']) {
+						} else if (isset($this->data['section']) == 'allEvents' && isset($this->data['events'])) {
 							$link = "/events/".$company['company_id']."/".Tools::slugify($company['company_name'])."/".Tools::slugify($c['date'])."/".$c['event_id']."/".Tools::slugify($c['name'])."/"; 
 						} else {
 							$link = "/company/".$company['category_id']."/".Tools::slugify($company['category'])."/".$company['company_id']."/".Tools::slugify($company['name'])."/";
 						}
 						?>
-					<?php if ($company['date']) { ?><div class="date"><?php echo Tools::formatMYSQLToFront($c['date']); ?></div><?php } ?>
+					<?php if (isset($company['date'])) { ?><div class="date"><?php echo Tools::formatMYSQLToFront($c['date']); ?></div><?php } ?>
 					<div class="img-box">
 						<a href="<?php echo $link; ?>">
 	            		<?php
@@ -1351,7 +1351,7 @@ class Layout_View
 								echo " / ".$this->data['company']['subcategoryInfo']['name'];
 							}
 							
-							if ($this->data['event']['detail'])
+							if (isset($this->data['event']['detail']))
 							{
 								echo Tools::formatMYSQLToFront($this->data['event']['detail']['date']);
 								if ($this->data['event']['detail']['date'].' hrs')

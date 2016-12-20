@@ -8,16 +8,17 @@
 	
 	$section = '';
 	
-	if ($_GET['category']){
+	if (isset($_GET['category']))
+	{
 		$section = 'byCategory';
 	}
 	
-	if ($_GET['subcategory'])
+	if (isset($_GET['subcategory']))
 	{
 		$section = 'bySubcategory';
 	}
 	
-	if ($_GET['location'])
+	if (isset($_GET['location']))
 	{
 		$section = 'byLocation';
 	}

@@ -78,8 +78,7 @@ class generalBackend
 
 			case 'byCategory':
 				//		get category info by the category id
-				$categoryInfo = $this->model->getCategoryInfoById($_GET['category']);
-				$data['categoryInfo'] = $categoryInfo;
+				$data['categoryInfo'] = $this->model->getCategoryInfoById($_GET['category']);
 				
 				//		get the category's subcategories
 				$subcategoryArray = $this->model->getSubcategoriesByCategoryId($_GET['category']);
@@ -126,8 +125,12 @@ class generalBackend
 			break;
 			
 			case 'byCompany' :
+				
 				$companyId 		= $_GET['company'];
-				$subcategoryId 	= $_GET['subcategory'];
+				
+				$subcategoryId 	= NULL;
+				if (isset($_GET['subcategory'])){ $subcategoryId 	= $_GET['subcategory']; }
+				
 				$categoryId 	= $_GET['category'];
 				
 				$companySeoInfo		  = $this->model->getCompanySeoInfo($companyId);
@@ -189,7 +192,7 @@ class generalBackend
 					$data['events'] = $events;
 				}
 				
-				if ($_GET['belong_company'])
+				if (isset($_GET['belong_company']))
 				{
 					$belongCompany 					= $_GET['belong_company'];
 					$belongCompanyLogo 				= $this->model->getCompanyLogo($belongCompany);
