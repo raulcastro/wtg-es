@@ -291,9 +291,8 @@ class Layout_View
 		  var js, fjs = d.getElementsByTagName(s)[0];
 		  if (d.getElementById(id)) return;
 		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/mx_MX/all.js#xfbml=1";
+		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
 		  fjs.parentNode.insertBefore(js, fjs);
-		  $('.messageBody').attr('color', '#fff');
 		}(document, 'script', 'facebook-jssdk'));</script>
 		
 		<?php
@@ -448,9 +447,6 @@ class Layout_View
                             </li>
                             <li>
                                 <a class="icon-xs fa-facebook-square" href="http://www.facebook.com/<?php echo $this->data['appInfo']['facebook']; ?>" target="_blank"></a>
-                            </li>
-                            <li>
-                                <a class="icon-xs fa-pinterest" href="http://www.pinterest.com/<?php echo $this->data['appInfo']['pinterest']; ?>" target="_blank"></a>
                             </li>
                             <li>
                                 <a class="icon-xs fa-youtube" href="http://www.youtube.com/user/<?php echo $this->data['appInfo']['youtube']; ?>" target="_blank"></a>
@@ -629,7 +625,9 @@ class Layout_View
 	                    </div>
 	                    <div class="col-md-4 wow fadeInLeft">
 	                        <h3 class="text-line-2 text-default-3">Videos</h3>
-	                        <?php echo  self :: getVideosIndex(); ?>
+	                        <div class="row">
+	                        	<?php echo  self :: getVideosIndex(); ?>
+	                        </div>
 	                        <a class="btn btn-xs btn-primary-1" href="/videos/">Ver todos<span class="material-icons-chevron_right"></span></a>
 	                    </div>
 	                </div>
@@ -802,7 +800,7 @@ class Layout_View
 		ob_start();
 		$image = str_replace('2.jpg', 'mqdefault.jpg', $video['image']);
 		?>
-		<div class="item">
+		<div class="item-video col-sm-6 col-lg-12 col-xs-12">
 			<div class="thumb"> 
 				<a href="https://www.youtube.com/watch?v=<?php echo $video['youtube']; ?>" data-lightbox="iframe">
 					<img src="<?php echo $image; ?>" 
@@ -835,10 +833,22 @@ class Layout_View
 	{
 		ob_start();
 		?>
-		<div class="fb-like-box" data-href="http://www.facebook.com/<?php echo $this->data['appInfo']['facebook']; ?>"
-			data-width="300" data-height="470" data-show-faces="true"
-			data-colorscheme="dark" style="color: #111; " 
-			data-stream="true" data-show-border="false" data-header="false">
+		<div id="fb-box-container">
+		
+		
+			<div class="fb-page" 
+			data-href="https://www.facebook.com/<?php echo $this->data['appInfo']['facebook']; ?>/" 
+			data-tabs="timeline" 
+			data-width="380" 
+			data-height="470" 
+			data-small-header="true" 
+			data-adapt-container-width="true"
+			 data-hide-cover="false" 
+			 data-show-facepile="true">
+				 <blockquote cite="https://www.facebook.com/wheretogoplayadelcarmen/" class="fb-xfbml-parse-ignore">
+				 	<a href="https://www.facebook.com/wheretogoplayadelcarmen/">Where to GO Playa del Carmen</a>
+				 </blockquote>
+			 </div>
 		</div>
 		<?php 
 		$facebookIndex = ob_get_contents();
@@ -857,25 +867,27 @@ class Layout_View
 	{
 		ob_start();
 		?>
-	    <div class="clr"></div>
-	    <div id="twitter">
-		    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/<?php $this->data['appInfo']['facebook']; ?>" data-widget-id="373534020283273216">
-		    	Tweets by @<?php echo $this->data['appInfo']['facebook']; ?>
-		    </a>
-			<script>
-				!function(d,s,id){
-					var js,
-					fjs=d.getElementsByTagName(s)[0],
-					p=/^http:/.test(d.location)?'http':'https';
-					if(!d.getElementById(id))
-					{
-						js=d.createElement(s);
-						js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
-						fjs.parentNode.insertBefore(js,fjs);
-					}
-				}(document,"script","twitter-wjs");
-			</script>
-	    </div><!-- /Twitter -->
+		<div id="twitter-container">
+		    <div class="clr"></div>
+		    <div id="twitter">
+			    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/<?php $this->data['appInfo']['facebook']; ?>" data-widget-id="373534020283273216">
+			    	Tweets by @<?php echo $this->data['appInfo']['facebook']; ?>
+			    </a>
+				<script>
+					!function(d,s,id){
+						var js,
+						fjs=d.getElementsByTagName(s)[0],
+						p=/^http:/.test(d.location)?'http':'https';
+						if(!d.getElementById(id))
+						{
+							js=d.createElement(s);
+							js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+							fjs.parentNode.insertBefore(js,fjs);
+						}
+					}(document,"script","twitter-wjs");
+				</script>
+		    </div><!-- /Twitter -->
+	    </div>
         <?php
         $twitter_box = ob_get_contents();
         ob_end_clean();
@@ -2135,7 +2147,7 @@ class Layout_View
 						<a href="/#" data-type="reset" class="more_btn">clear</a>
 						<a href="/#" data-type="submit" class="more_btn">submit</a>
 					</div>  
-					<div class="clr"></div
+					<div class="clr"></div>
 				</form>
     		</div>
     	</div><!-- main sections -->
