@@ -1430,7 +1430,7 @@ class Layout_View
 	{
 		ob_start();
 		?>
-		<section class='new-main-content cf' id='x-protips-grid'
+		<section class='new-main-content cf' id='x-protips-grid'>
 			<input type="hidden" id="category-type-hidden" value="<?php echo $c; ?>" />				
 			<?php 
 			echo self::getTopBar();
@@ -1533,7 +1533,7 @@ class Layout_View
 							}
 						}
 						?>
-						<div class="clr"></div
+						<div class="clr"></div>
 					</div>
 				</div>
 				

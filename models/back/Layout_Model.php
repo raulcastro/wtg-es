@@ -33,6 +33,32 @@ class Layout_Model
 	}
 	
 	/**
+	 * Get the user info
+	 *
+	 * Get's the user detail {user_id, name, ...}
+	 *
+	 * @return mixed|bool An array of info or false
+	 */
+	public function getUserInfo()
+	{
+		try {
+			$query = "SELECT
+					u.user_id,
+					u.type,
+					d.name,
+					u.type
+					FROM users u
+					LEFT JOIN user_detail d ON u.user_id = d.user_id
+					WHERE u.user_id = ".$_SESSION['userId'];
+			
+			return $this->db->getRow($query);
+				
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
 	 * getMainSliders
 	 * 
 	 * sliders that should be displayed in the index
@@ -283,7 +309,7 @@ class Layout_Model
 			$prep->bind_param('si', 
 					$data['companyWebsite'],
 					$companyId);
-			$prep->execute();
+			return $prep->execute();
 		} catch (Exception $e) {
 			return false;
 		}
@@ -874,6 +900,32 @@ class Layout_Model
 	}
 	
 	/**
+	 * getAllCompanies
+	 *
+	 * returns all the companies
+	 *
+	 * @param int $id this is the category id
+	 * @return multitype:unknown |boolean
+	 */
+	public function getTotalCompanies()
+	{
+		try
+		{
+			$query = 'SELECT COUNT(*)
+			FROM companies c
+			LEFT JOIN seo s ON c.company_id = s.company_id
+			LEFT JOIN company_logo p ON c.company_id = p.company_id
+			LEFT JOIN categories ca ON ca.category_id = c.category';
+	
+			return $this->db->getValue($query);
+		}
+		catch (Exception $e)
+		{
+			return false;
+		}
+	}
+	
+	/**
 	 * getCompaniesByCategoryId
 	 *
 	 * returns all the companies that belongs to a given category
@@ -1011,7 +1063,7 @@ class Layout_Model
 					c.name, 
 					c.published,
 					s.description, 
-					cat.name as category_name,
+					cat.name as category,
 					cat.category_id, 
 					cl.logo 
 					FROM companies c 
@@ -1020,6 +1072,80 @@ class Layout_Model
 					LEFT JOIN company_logo cl ON cl.company_id = c.company_id
 					WHERE c.main_promoted = 1';
 			return $this->db->getArray($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * getMainPromotedCompanies
+	 *
+	 * return the info for the main_promoted companies, there must to be four
+	 *
+	 * @return multitype:unknown |boolean
+	 */
+	public function getTotalMainPromotedCompanies()
+	{
+		try {
+			$query = 'SELECT
+					COUNT(*)
+					FROM companies c
+					LEFT JOIN seo s ON s.company_id = c.company_id
+					LEFT JOIN categories cat ON c.category = cat.category_id
+					LEFT JOIN company_logo cl ON cl.company_id = c.company_id
+					WHERE c.main_promoted = 1';
+			return $this->db->getValue($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * getMainPromotedCompanies
+	 *
+	 * return the info for the main_promoted companies, there must to be four
+	 *
+	 * @return multitype:unknown |boolean
+	 */
+	public function getMainUnpublishedCompanies()
+	{
+		try {
+			$query = 'SELECT
+					c.company_id,
+					c.name,
+					c.published,
+					s.description,
+					cat.name as category,
+					cat.category_id,
+					cl.logo
+					FROM companies c
+					LEFT JOIN seo s ON s.company_id = c.company_id
+					LEFT JOIN categories cat ON c.category = cat.category_id
+					LEFT JOIN company_logo cl ON cl.company_id = c.company_id
+					WHERE c.published = 0
+					ORDER BY c.company_id DESC
+					';
+			return $this->db->getArray($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * getMainPromotedCompanies
+	 *
+	 * return the info for the main_promoted companies, there must to be four
+	 *
+	 * @return multitype:unknown |boolean
+	 */
+	public function getTotalNotPublisedCompanies()
+	{
+		try {
+			$query = 'SELECT
+					COUNT(*)
+					FROM companies c
+					WHERE c.published = 0';
+			return $this->db->getValue($query);
 		} catch (Exception $e) {
 			return false;
 		}
@@ -1194,9 +1320,7 @@ class Layout_Model
 			LEFT JOIN locations l ON cu.ubication = l.location_id
 		
 			WHERE cu.ubication = '.$id.'
-			AND c.published = 1
-			GROUP BY c.company_id
-			ORDER BY c.promoted AND c.company_id DESC';
+			GROUP BY c.company_id DESC';
 				
 			return $this->db->getArray($query);
 		}
@@ -1766,6 +1890,33 @@ class Layout_Model
 					$data['phoneVal']);
 			$prep->execute();
 		} catch (Exception $e)
+		{
+			return false;
+		}
+	}
+	
+	public function countCompanyPromoted()
+	{
+		try {
+			$query = 'SELECT COUNT(*) FROM companies WHERE main_promoted = 1';
+			return $this->db->getValue($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	public function promoteCompany($companyId, $todo)
+	{
+		try
+		{
+			$companyId = (int) $companyId;
+	
+			$query = 'UPDATE companies SET main_promoted = '.$todo.'
+					WHERE company_id = '.$companyId;
+	
+			return $this->db->run($query);
+		}
+		catch (Exception $e)
 		{
 			return false;
 		}

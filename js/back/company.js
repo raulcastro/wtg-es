@@ -18,6 +18,10 @@ $(document).ready(function()
 		updateCompany();
 	});
 	
+	$('#promote-company').click(function(){
+		promoteCompany();
+	});
+	
 	$('#publish-company').click(function(){
 		publishCompany();
 	});
@@ -31,16 +35,16 @@ $(document).ready(function()
 	});
 	
 	$('#addEmailField').click(function(){
-		emailField = '<label>Email</label>'
-			+'<input type="text" value="" class="companyEmail" eid="0" />'
-			+'<div class="clr"></div>';
+		emailField = '<div class="form-group"><label class="col-sm-1 control-label">Email</label>'
+			+'<div class="col-sm-11"><input type="text" value="" class="companyEmail form-control" eid="0" /></div>'
+			+'</div>';
 		$('#companyEmails').append(emailField);
 	});
 	
 	$('#addPhoneField').click(function(){
-		phoneField = '<label>Phone</label>'
-			+'<input type="text" value="" class="companyPhone" pid="0" />'
-			+'<div class="clr"></div>';
+		phoneField = '<div class="form-group"><label class="col-sm-1 control-label">Phone</label>'
+			+'<div class="col-sm-11"><input type="text" value="" class="companyPhone form-control" pid="0" /></div>'
+			+'</div>';
 		$('#companyPhones').append(phoneField);
 	});
 	
@@ -61,13 +65,13 @@ $(document).ready(function()
 	
 	$(".logo-uploader").uploadFile({
 		url:"/ajax/back/company-media-logo.php?option=1",
-		fileName:"myfile",
-		multiple: false,
-		doneStr:"uploaded!",
+		fileName:	"myfile",
+		multiple: 	false,
+		doneStr:	"logo uploaded!",
 		formData: {
-			"lastIdLogo":lastIdLogo, 
-			"companyId":companyId, 
-			"companyName": companyName},
+			"lastIdLogo":	lastIdLogo, 
+			"companyId":	companyId, 
+			"companyName": 	companyName},
 		onSuccess:function(files, data, xhr)
 		{
 			obj 		= JSON.parse(data);
@@ -78,6 +82,7 @@ $(document).ready(function()
 			if (dncLogo){dncLogo.dragncrop('destroy');}
 			
 			createDncLogo(obj.fileName);
+			
 			$('.logo-box').show();
 			$('#save-crop-logo').show();
 		}
@@ -88,8 +93,8 @@ $(document).ready(function()
 		source = '/img-up/companies_pictures/medium/'+image;
 		$('#cropLogo').attr('src', source);
 		dncLogo = $('#cropLogo').dragncrop({
-			instruction: false,
-			centered: false,
+			instruction: 	false,
+			centered: 		false,
 			stop: function(event, position){
 			   	dimensions 	= String(position.dimension);
 			   	res 		= dimensions.split(",");
@@ -238,13 +243,13 @@ function saveSliderCrop(xSlider, ySlider, imgId, lastIdSlider)
         {
             if (0 != xml)
             {
-            	sliderItem = '<div class="slider-item" id="sid-'+lastIdSlider+'">'
+            	sliderItem = '<div class="slider-item col-md-4" id="sid-'+lastIdSlider+'">'
 								+ '<header>'
 								+ '<a href="#" class="button red delete-slider" sid="'+lastIdSlider+'">delete</a>'
 								+ '</header>'
 								+ '<section>'
 								+ '	<div class="img-container">'
-								+ '		<img src="/img-up/companies_pictures/sliders/'+imgId+'"  />'
+								+ '		<img src="/img-up/companies_pictures/sliders/'+imgId+'" class="img-responsive" />'
 								+ '	</div>'
 								+ '</section>'
 								+ '<div class="clr"></div>'
@@ -373,7 +378,7 @@ function savePhones()
 function saveInfo()
 {
 	companyId			= $('#companyId').val();
-	companyDescription 	= $('#company-description').trumbowyg('html');
+	companyDescription 	= $('#company-description').val();
 	companyName 		= $('#companyName').val();
 	companyLocation 	= $('#companyLocation').val();
 	locationArray 		= companyLocation.split(",");
@@ -395,7 +400,11 @@ function saveInfo()
         {
             if (0 != xml)
             {
-            	
+            	bootbox.alert({
+            	    message: "The info has been succesfully updated! =)",
+            	    size: 'small',
+            	    backdrop: true
+            	});
             }
         }
     });
@@ -418,7 +427,11 @@ function updateCompany()
         {
             if (0 != xml)
             {
-            	
+            	bootbox.alert({
+            	    message: "The contact info has been updated! ^_^",
+            	    size: 'small',
+            	    backdrop: true
+            	});
             }
         }
     });
@@ -445,7 +458,11 @@ function saveSeo()
         {
             if (0 != xml)
             {
-            	
+            	bootbox.alert({
+            	    message: "The info about SEO has been succesfully updated! *_*",
+            	    size: 'small',
+            	    backdrop: true
+            	});
             }
         }
     });
@@ -478,7 +495,11 @@ function saveSocial()
         {
             if (0 != xml)
             {
-            	
+            	bootbox.alert({
+            	    message: "Hell Yeah! Social info it's updated! ʘ‿ʘ",
+            	    size: 'small',
+            	    backdrop: true
+            	});
             }
         }
     });
@@ -638,16 +659,20 @@ function updateCompanyLocation(node)
 function publishCompany(pictureId)
 {
 	companyId 	= $('#companyId').val();
-	todo = 0;
+	todo 		= 0;
 	
-	if ($('#publish-company').attr('class') == 'active')
+	aMessage = '';
+	
+	if ($('#publish-company').hasClass('bg-purple'))
 	{
-		$('#publish-company').removeClass('active');
+		$('#publish-company').removeClass('bg-purple');
+		aMessage = "OK, you just unpublished this company! <br> (¬､¬)";
 	}
 	else
 	{
-		$('#publish-company').addClass('active');
+		$('#publish-company').addClass('bg-purple');
 		todo = 1;
+		aMessage = "This company it's published now! <br> ｡^‿^｡";
 	}
 	
     $.ajax({
@@ -655,7 +680,7 @@ function publishCompany(pictureId)
         url:    '/ajax/back/company.php',
         data:{  
         	companyId: companyId,
-        	todo: todo,
+        	todo: 	todo,
         	section: 'publish'
              },
         success:
@@ -664,6 +689,11 @@ function publishCompany(pictureId)
             if ('1' == xml)
             {
 //            	$('#cgid-'+pictureId).fadeOut();
+            	bootbox.alert({
+            	    message: aMessage,
+            	    size: 'small',
+            	    backdrop: true
+            	});
             }
         }
     });
@@ -673,15 +703,18 @@ function closeCompany(pictureId)
 {
 	companyId 	= $('#companyId').val();
 	todo = 1;
+	aMessage = '';
 	
-	if ($('#close-company').attr('class') == 'active')
+	if ($('#close-company').hasClass('bg-purple'))
 	{
-		$('#close-company').removeClass('active');
+		$('#close-company').removeClass('bg-purple');
+		aMessage = "OK, you just closed this company! <br> (¬､¬)";
 	}
 	else
 	{
-		$('#close-company').addClass('active');
+		$('#close-company').addClass('bg-purple');
 		todo = 0;
+		aMessage = "This company it's opened now! <br> ｡^‿^｡";
 	}
 	
     $.ajax({
@@ -698,6 +731,11 @@ function closeCompany(pictureId)
             if ('1' == xml)
             {
 //            	$('#cgid-'+pictureId).fadeOut();
+            	bootbox.alert({
+            	    message: aMessage,
+            	    size: 'small',
+            	    backdrop: true
+            	});
             }
         }
     });
@@ -728,6 +766,120 @@ function createCompany()
 	
 }
 
+function promoteCompany()
+{
+	companyId 	= $('#companyId').val();
+	
+	if ($('#promote-company').hasClass('bg-purple'))
+	{
+		$.ajax({
+	        type:   'POST',
+	        url:    '/ajax/back/company.php',
+	        data:{  
+	        	companyId: 	companyId,
+	        	todo: 		0,
+	        	section: 	'promote'
+	             },
+	        success:
+	        function(xml)
+	        {
+	            if ('1' == xml)
+	            {
+	            	$('#promote-company').removeClass('bg-purple');
+	            	
+	            	bootbox.alert({
+	            	    message: "This company it's not longer promoted <br> ”(ᴗ_ ᴗ。)",
+	            	    size: 'small',
+	            	    backdrop: true
+	            	});
+	            }
+	        }
+	    });
+		
+	}
+	else
+	{
+		var nPromoted = 0;
+		
+		$.ajax({
+			  type:   'POST',
+			  url:    '/ajax/back/company.php',
+			  data:{  
+			  	companyId: 	companyId,
+			  	section: 	'checkPromoted'
+			       },
+			  success:
+			  function(promoted)
+			  {
+			      if (promoted)
+			      {
+			    	  nPromoted = promoted;
+			    	   if (nPromoted >= 8)
+			    	   {
+			    		   $('#promote-company').removeClass('bg-purple');
+			    		   bootbox.alert({
+			            	    message: "There already 8 companies promoteded! <br> ¯\_(ツ)_/¯",
+			            	    size: 'small',
+			            	    backdrop: true
+			            	});
+			    	   }
+			    	   else
+			    	   {
+			    		    $.ajax({
+			    		        type:   'POST',
+			    		        url:    '/ajax/back/company.php',
+			    		        data:{  
+			    		        	companyId: 	companyId,
+			    		        	todo: 		1,
+			    		        	section: 	'promote'
+			    		             },
+			    		        success:
+			    		        function(xml)
+			    		        {
+			    		            if ('1' == xml)
+			    		            {
+//			    		            	$('#cgid-'+pictureId).fadeOut();
+			    		            	$('#promote-company').addClass('bg-purple');
+			    		            	
+			    		            	bootbox.alert({
+						            	    message: "This company it's promoted now! <br> (~‾▿‾)~",
+						            	    size: 'small',
+						            	    backdrop: true
+						            	});
+			    		            }
+			    		        }
+			    		    });
+			    		   
+			    	   }
+			      }
+			  }
+		});
+		
+	}
+	
+
+}
+
+function countPromotedCompanies()
+{
+	  $.ajax({
+	  type:   'POST',
+	  url:    '/ajax/back/company.php',
+	  data:{  
+	  	companyId: 	companyId,
+	  	todo: 		todo,
+	  	section: 	'checkPromoted'
+	       },
+	  success:
+	  function(nPromoted)
+	  {
+	      if (nPromoted)
+	      {
+	    	  return nPromoted;
+	      }
+	  }
+	  });
+}
 
 
 

@@ -1489,7 +1489,9 @@ body#sign-in #main-content {
 	cursor: pointer;
 }
 
-
+.company-item {
+	border: 1px solid red;
+}
 
 
 

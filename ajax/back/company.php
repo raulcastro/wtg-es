@@ -12,7 +12,10 @@ switch ($_POST['section'])
 		$model	= new Layout_Model();
 		if (!empty($_POST))
 		{
-			$model->updateCompanyInfo($_POST);
+			if ($model->updateCompanyInfo($_POST))
+			{
+				echo 1;
+			}
 		}
 	break;
 
@@ -21,16 +24,23 @@ switch ($_POST['section'])
 		$model	= new Layout_Model();
 		if (!empty($_POST))
 		{
-			$model->updateCompanySeo($_POST);
+			if ($model->updateCompanySeo($_POST))
+			{
+				echo 1;
+			}
 		}
 	break;
 	
 	// 	Social
 	case 'social':
 		$model	= new Layout_Model();
+
 		if (!empty($_POST))
 		{
-			$model->updateCompanySocial($_POST);
+			if ($model->updateCompanySocial($_POST))
+			{
+				echo 1;
+			}
 		}
 	break;
 	
@@ -73,7 +83,10 @@ switch ($_POST['section'])
 		$model	= new Layout_Model();
 		if (!empty($_POST))
 		{
-			$model->updateCompanyWebsite($_POST);
+			if ($model->updateCompanyWebsite($_POST))
+			{
+				echo 1;
+			}
 		}
 	break;
 	
@@ -82,7 +95,8 @@ switch ($_POST['section'])
 		$model	= new Layout_Model();
 		if (!empty($_POST))
 		{
-			$model->publishCompany($_POST['companyId'], $_POST['todo']);
+			if ($model->publishCompany($_POST['companyId'], $_POST['todo']))
+				echo 1;
 		}
 	break;
 	
@@ -91,7 +105,8 @@ switch ($_POST['section'])
 		$model	= new Layout_Model();
 		if (!empty($_POST))
 		{
-			$model->closeCompany($_POST['companyId'], $_POST['todo']);
+			if ($model->closeCompany($_POST['companyId'], $_POST['todo']))
+				echo 1;
 		}
 	break;
 	
@@ -107,6 +122,23 @@ switch ($_POST['section'])
 				echo $companyId;
 			}
 				
+		}
+	break;
+	
+	case 'checkPromoted':
+		$model	= new Layout_Model();
+		if (!empty($_POST))
+		{
+			echo $model->countCompanyPromoted(); 
+		}
+	break;
+	
+	case 'promote':
+		$model	= new Layout_Model();
+		if (!empty($_POST))
+		{
+			if ($model->promoteCompany($_POST['companyId'], $_POST['todo']))
+				echo 1;
 		}
 	break;
 }

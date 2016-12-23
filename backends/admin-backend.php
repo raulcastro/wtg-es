@@ -44,32 +44,44 @@ class generalBackend
 		$data['appInfo'] = $appInfo;
 		
 		// 		Categories
-		$categoriesArray = $this->model->getCategoriesWithCompanies();
-		$data['categories'] = $categoriesArray;
+		$data['categories'] = $this->model->getCategoriesWithCompanies();
 		
 		// 		Locations
-		$locationsArray = $this->model->getLocations();
-		$data['locations'] = $locationsArray;
+		$data['locations'] = $this->model->getLocations();
+		
+		$data['userInfo'] 	= $this->model->getUserInfo();
 
+		$data['nCompanies'] = $this->model->getTotalCompanies();
+		
+		$data['nPromoted'] = $this->model->getTotalMainPromotedCompanies();
+		
+		$data['nNoPublish'] = $this->model->getTotalNotPublisedCompanies();
 		
 		switch ($section) 
 		{
 			case 'companies':
 				// 		get All companies
-				$companiesArray = $this->model->getCompanies();
-				$data['companies'] = $companiesArray;
-				
+				$data['companies'] = $this->model->getCompanies();
 			break;
 			
 			case 'promoted':
 				// 		get Promoted companies
-				$companiesArray = $this->model->getMainPromotedCompanies();
-				$data['companies'] = $companiesArray;
+				$data['companies'] = $this->model->getMainPromotedCompanies();
 			break;
 			
 			case 'byCategory':
+				$data['companies'] = $this->model->getCompaniesByCategoryId($_GET['categoryId']);
+				$data['categoryInfo'] = $this->model->getCategoryInfoById($_GET['categoryId']);
+			break;
+			
+			case 'location':
 				// 		get Promoted companies
-				$companiesArray = $this->model->getCompaniesByCategoryId($_GET['categoryId']);
+				$data['companies'] = $this->model->getCompaniesByLocation($_GET['locationId']);
+			break;
+			
+			case 'unpublished':
+				// 		get Promoted companies
+				$companiesArray = $this->model->getMainUnpublishedCompanies();
 				$data['companies'] = $companiesArray;
 			break;
 			
@@ -80,11 +92,19 @@ class generalBackend
 			break;
 			
 			case 'edit-company' :
-				$companyId 		= $_GET['company'];
+				$companyId = '';
+				$categoryId = '';
 				
-				$categoryId 	= $_GET['category'];
+				if (isset($_GET['company']))
+				{
+					$companyId 		= $_GET['company'];
+				}
 				
-				// 		get the background file for use as blur
+				if (isset($_GET['category']))
+				{
+					$categoryId 		= $_GET['category'];
+				}
+				
 				$background = $this->model->getCompanyLogo($companyId);
 				$data['background'] = $background;
 				
