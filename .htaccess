@@ -39,14 +39,6 @@ RewriteRule ^contact-us/$ /contact.php
 
 #   Edit  companies
 RewriteRule ^admin/edit-company/main/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company_n.php?company=$1
-RewriteRule ^admin/company/main/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company.php?company=$1
-RewriteRule ^admin/company/info/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-info.php?company=$1
-RewriteRule ^admin/company/seo/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-seo.php?company=$1
-RewriteRule ^admin/company/social/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-social.php?company=$1
-RewriteRule ^admin/company/contact/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-contact.php?company=$1
-RewriteRule ^admin/company/media/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-media.php?company=$1
-RewriteRule ^admin/company/events/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-events.php?company=$1
-RewriteRule ^admin/company/settings/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company-settings.php?company=$1
 
 #   Add company
 RewriteRule ^admin/add-company/$ /admin/add-company.php?1&section=2
@@ -59,13 +51,9 @@ RewriteRule ^admin/grid/promoted/$ /admin/grid.php?infoRequest=promoted
 RewriteRule ^admin/grid/unpublished/$ /admin/grid.php?infoRequest=unpublished
 RewriteRule ^admin/grid/location/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/grid.php?infoRequest=location&locationId=$1
 
-#RewriteRule ^admin/grid/$ /admin/grid.php?section=3
-#RewriteRule ^admin/grid/promoted/$ /admin/grid.php?promoted=1&section=3
-#RewriteRule ^admin/grid/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/grid.php?categoryId=$1&section=3
-
-
 
 #   main-sliders
+RewriteRule ^admin/maingallery/$ /admin/main-gallery_n.php
 RewriteRule ^admin/main-gallery/$ /admin/main-gallery.php?section=7
 
 #   videos

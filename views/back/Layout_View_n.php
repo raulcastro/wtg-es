@@ -86,32 +86,8 @@ class Layout_View
 					# code...
 				break;
 				
-				case 'settings':
-					echo self :: getSettingsHead();
-				break;
-				
-				case 'inventory-category':
-					echo self::getCategoryHead();
- 				break;
-				
-				case 'add-owner':
-					echo self::getAddOwnerHead();
-				break;
-				
-				case 'member':
-					echo self::getMemberHead();
-				break;
-				
-				case 'rooms':
-					echo self::getRoomsHead();
-				break;
-				
-				case 'room':
-					echo self::getRoomHead();
-				break;
-				
-				case 'tasks':
-					echo self::getTasksHead();
+				case 'main-gallery':
+					echo self::getMainGalleryHead();
 				break;
 				
 				case 'edit-company':
@@ -150,48 +126,12 @@ class Layout_View
 								echo self::getGridContent();
 							break;
 							
-							case 'owners':
-								echo self::getRecentMembers();
- 							break;
-							
-							case 'settings':
-								echo self::getSettingsContent();
-							break;
-							
-							case 'inventory-category':
-								echo self::getCategoryContent();
-							break;
-							
-							case 'add-owner':
-								echo self::getAddOwnerContent();
-							break;
-
-							case 'member':
-								echo self::getMemberContent();
-							break;
-							
-							case 'members':
-								echo self::getAllMembers();
-							break;
-							
-							case 'condo':
-								echo self::getRoomsByCondo();
-							break;
-							
-							case 'rooms':
-								echo self::getRoomsContent();
-							break;
-							
-							case 'room':
-								echo self::getRoomContent();
-							break;
-							
-							case 'tasks':
-								echo self :: getAllTasks();
-							break;
-
 							case 'edit-company':
 								echo self::getEditCompanyContent();
+							break;
+							
+							case 'main-gallery':
+								echo self::getMainGalleryContent();
 							break;
 								
 							default :
@@ -230,32 +170,8 @@ class Layout_View
 					echo self::getLogInScripts();
 				break;
 				
-				case 'settings':
-					echo self::getSettingsScripts();
-				break;
-				
-				case 'inventory-category':
-					echo self::getCategoryScripts();
-				break;
-				
-				case 'add-owner':
-					echo self::getAddOwnerScripts();
-				break;
-				
-				case 'member':
-					echo self::getMemberScripts();
-				break;
-				
-				case 'rooms':
-					echo self::getRoomsScripts();
-				break;
-				
-				case 'room':
-					echo self::getRoomScripts();
-				break;
-				
-				case 'tasks':
-					echo self::getTasksScripts();
+				case 'main-gallery':
+					echo self::getMainGalleryScripts();
 				break;
 				
 				case 'edit-company':
@@ -733,7 +649,7 @@ class Layout_View
                     </li>
 					
 					<li>
-						<a href="calendar.html">
+						<a href="/admin/maingallery/">
 							<i class="fa fa-file-photo-o"></i> <span>Main Gallery</span>
 						</a>
 					</li>
@@ -1456,6 +1372,271 @@ class Layout_View
         $content = ob_get_contents();
         ob_end_clean();
         return $content;
+    }
+    
+    public function getMainGalleryHead()
+    {
+    	ob_start();
+    	?>
+    	<script type="text/javascript"></script>
+    	<link href="/css/back/uploadfile.css" rel="stylesheet">
+    	<link href="/css/back/jquery.drag-n-crop.css" rel="stylesheet" type="text/css">
+    	<?php
+    	$head = ob_get_contents();
+    	ob_end_clean();
+    	return $head;
+    }
+    
+    public function getMainGalleryScripts()
+    {
+    	ob_start();
+    	?>
+    	<script src="/js/jquery-ui.min.js"></script>
+    		<script src="/js/back/jquery.uploadfile.min.js"></script>
+    		<script src="/js/back/imagesloaded.js"></script>
+			<script src="/js/back/scale.fix.js"></script>
+			<script src="/js/back/jquery.drag-n-crop.js"></script>
+			<script src="/js/back/main-sliders.js"></script>
+        	<script type="text/javascript">
+			width = 0;
+			height = 0;
+			image = "";
+			x=0;
+			y=0;
+			lastId = 0;
+			var dnd;
+			
+        	$(document).ready(function()
+        	{
+        		$(".uploader").uploadFile({
+	        		url:"/ajax/back/main-sliders.php?option=1",
+	        		fileName:"myfile",
+	        		multiple: false,
+	        		doneStr:"uploaded!",
+	        		onSuccess:function(files,data,xhr)
+	        		{
+	        			obj 	= JSON.parse(data);
+	        			width 	= obj.wp;
+	        			height 	= obj.hp;
+	        			image 	= obj.fileName;
+	        			lastId 	= obj.lastId;
+	        			createDrag(obj.fileName);
+	        			$('.save-crop').show();
+	        		}
+        		});
+				
+        		function createDrag(image)
+        		{
+            		source = '/img-up/main-gallery/medium/'+image;
+            		$('#crop').attr('src', source);
+        			dnd = $('#crop').dragncrop({
+            			instruction: false,
+            			centered: false,
+            			stop: function(evnt, position){
+            			   	dimensions = String(position.dimension);
+            			   	res = dimensions.split(",");
+            			   	x = res[0];
+            			   	y = res[1];
+            			  }
+                    });
+            	}
+
+            	$('#save-crop').click(function(){
+					save();
+					dnd.dragncrop('destroy');
+					return false;
+                });
+
+            	$('#add-slider').click(function(){
+            		$('.main-slider-upload').show();
+            		return false; 
+                });
+
+                $('.save-slider').click(function(){
+					saveSliderData($(this).attr('sid'));
+					return false;
+                });
+
+                $('.delete-slider').click(function(){
+                	deleteSlider($(this).attr('sid'));
+					return false;
+                });
+        	});
+        	
+        	function save()
+        	{
+        		imgId = image;
+        		
+        	    $.ajax({
+        	        type:   'POST',
+        	        url:    '/ajax/back/main-sliders.php?option=2',
+        	        data:{  x: x,
+        	                y: y,
+        	            imgId: imgId
+        	             },
+        	        success:
+        	        function(xml)
+        	        {
+            	        
+        	            if (0 != xml)
+        	            {
+        	            	$('.main-slider-upload').fadeOut();
+        	            	item = '<div class="slider-item main-slider-item" id="sid-'+lastId+'">'
+								+'<header>'
+									+'<a href="#" class="btn btn-danger btn-xs delete-slider" sid="'+lastId+'"> delete</a>'
+									+'<a href="#" class="btn btn-info btn-xs save-slider" sid="'+lastId+'"> save</a>'
+								+'</header>'
+								+'<div class="row">'
+ 									+'<div class="col-md-2"><br>'
+										+'<div class="img-container">'
+											+'<img src="/img-up/main-gallery/thumb/'+imgId+'" />'
+										+'</div>'
+ 									+'</div>'
+									+'<div class="col-md-10"><br>'
+										+'<div class="form-group">'
+								        	+'<label for="inputName" class="col-sm-1 control-label">Title</label>'
+								        	+'<div class="col-sm-11">'
+												+'<input type="" class="form-control slider-title" placeholder="Title" value="">'
+											+'</div>'
+								      	+'</div>'
+								      	
+								      	+'<div class="form-group">'
+								        	+'<label for="inputName" class="col-sm-1 control-label">Link</label>'
+								        	+'<div class="col-sm-11">'
+												+'<input type="" class="form-control slider-link" placeholder="Link" value="">'
+											+'</div>'
+								      	+'</div>'
+								      	
+								      	+'<div class="form-group">'
+								        	+'<label for="inputName" class="col-sm-1 control-label">Promos</label>'
+								        	+'<div class="col-sm-11">'
+												+'<input type="" class="form-control slider-promos" placeholder="Promos" value="">'
+											+'</div>'
+								      	+'</div>'
+									+'</div>'
+	 							+'</div>'
+	 						+'</div>';
+					
+
+							$('#slider-items').prepend(item);
+
+							$('.save-slider').click(function(){
+								saveSliderData($(this).attr('sid'));
+								return false;
+			                });
+
+			                $('.delete-slider').click(function(){
+			                	deleteSlider($(this).attr('sid'));
+								return false;
+			                });
+        	            }
+        	        }
+        	    });
+        	}
+
+    		</script>
+    	
+    	<?php
+    	$scripts = ob_get_contents();
+    	ob_end_clean();
+    	return $scripts;
+    }
+    
+    public function getMainGalleryContent()
+    {
+    	ob_start();
+    	?>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content-box">
+					<header>
+						<div class="form-group">
+							<div class="col-sm-2">
+								<button type="button" id="add-slider" class="btn btn-block btn-info ">Add Slider</button>
+							</div>
+							<div class="col-sm-10"></div>
+						</div>
+					</header>
+					
+					<div class="clear"></div>
+					<br>
+					<p class="text-muted">(2048px / 1100px | JPG)</p>
+			
+					<div class="slider-box">
+						<div class="main-slider-upload">
+							<div class="uploader">
+								Upload
+							</div>
+							<div class="clear"></div>
+							<br>
+							<div class="crop-box">
+								<div style="width: 900px; height:483px" class="crop-container"><img src="" id="crop" /></div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-1">
+									<button type="button"class="btn btn-block btn-success save-crop"  id="save-crop">Save</button>
+								</div>
+								<div class="col-sm-11"></div>
+							</div>
+							
+							<div class="clear"></div>
+						</div>
+						<div id="slider-items">
+							<?php 
+							foreach ($this->data['mainSliders'] as $slider) {
+							?>
+							<div class="slider-item main-slider-item" id="sid-<?php echo $slider['picture_id']; ?>">
+								<header>
+									<a href="#" class=" btn btn-danger btn-xs delete-slider" sid="<?php echo $slider['picture_id']; ?>">delete</a>
+									<a href="#" class="btn btn-info btn-xs save-slider" sid="<?php echo $slider['picture_id']; ?>">save</a>
+								</header>
+								<div class="row">
+									<div class="col-md-2">
+										<br>
+										<div class="img-container">
+						    				<img src="/img-up/main-gallery/thumb/<?php echo $slider['name']; ?>" />
+						    			</div>
+					    			</div>
+					    			<div class="col-md-10">
+					    				<br>
+					    				<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Title</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control slider-title" placeholder="Title" value="<?php echo $slider['title']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Link</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control slider-link" placeholder="Link" value="<?php echo $slider['link']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Promos</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control slider-promos" placeholder="Promos" value="<?php echo $slider['promos']; ?>">
+											</div>
+					                  	</div>
+					                  	
+									</div>
+								</div>
+								<div class="clr"></div>
+							</div>
+							<?php 
+							}
+							?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <?php
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
     }   
     
     public function getSectionHead()
@@ -1486,7 +1667,7 @@ class Layout_View
     {
     	ob_start();
     	?>
-
+		
         <?php
         $content = ob_get_contents();
         ob_end_clean();

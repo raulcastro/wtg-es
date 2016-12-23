@@ -53,16 +53,23 @@ switch ($_GET['option'])
 		
 		if (!empty($_POST))
 		{
-			$dstWidth = 970;
-			$dstImageHeight = 300;
-			 
-			$source = $root.'img-up/main-gallery/original/'.$_POST['imgId'];
-			$destination = $root.'img-up/main-gallery/front/'.$_POST['imgId'];
-			 
+			$dstWidth 		= 2048;
+			$dstImageHeight = 1100;
+			
+			$imgId = '';
+			
+			if (isset($_POST['imgId']))
+			{
+				$imgId = $_POST['imgId'];
+			}
+			
+			
+			$source 		= $root.'img-up/main-gallery/original/'.$imgId;
+			$destination 	= $root.'img-up/main-gallery/front/'.$imgId;
+			
 			if ($model -> cropImage($_POST, $dstWidth, $dstImageHeight, $source, $destination))
 			{
-				if ($model -> cropImage($model->getThumb($_POST['imgId'], $root.'img-up/main-gallery/front/', $root.'img-up/main-gallery/thumb/', 200,
-						'width', '')))
+				if ($model->getThumb($imgId, $root.'img-up/main-gallery/front/', $root.'img-up/main-gallery/thumb/', 200, 'width', ''))
 				{
 					echo '1';
 				}
