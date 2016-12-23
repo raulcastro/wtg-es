@@ -57,6 +57,7 @@ RewriteRule ^admin/maingallery/$ /admin/main-gallery_n.php
 RewriteRule ^admin/main-gallery/$ /admin/main-gallery.php?section=7
 
 #   videos
+RewriteRule ^admin/main-videos/$ /admin/videos_n.php?section=8
 RewriteRule ^admin/videos/$ /admin/videos.php?section=8
 
 #   Members

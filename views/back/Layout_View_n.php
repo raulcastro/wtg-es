@@ -93,6 +93,10 @@ class Layout_View
 				case 'edit-company':
 					echo self::getEditCompanyHead();
 				break;
+				
+				case 'videos':
+					echo self::getMainVideosHead();
+				break;
 			}
 			?>
 		</head>
@@ -132,6 +136,10 @@ class Layout_View
 							
 							case 'main-gallery':
 								echo self::getMainGalleryContent();
+							break;
+							
+							case 'videos':
+								echo self::getMainVideosContent();
 							break;
 								
 							default :
@@ -176,6 +184,10 @@ class Layout_View
 				
 				case 'edit-company':
 					echo self::getEditCompanyScripts();
+				break;
+				
+				case 'videos':
+					echo self::getMainVideosScripts();
 				break;
 			}
 			?>
@@ -655,7 +667,7 @@ class Layout_View
 					</li>
 					
 					<li>
-						<a href="calendar.html">
+						<a href="/admin/main-videos/">
 							<i class="fa  fa-video-camera"></i> <span>Videos</span>
 						</a>
 					</li>
@@ -1533,9 +1545,7 @@ class Layout_View
         	        }
         	    });
         	}
-
     		</script>
-    	
     	<?php
     	$scripts = ob_get_contents();
     	ob_end_clean();
@@ -1630,6 +1640,86 @@ class Layout_View
 							?>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+        <?php
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
+    }
+    
+    public function getMainVideosHead()
+    {
+    	ob_start();
+    	?>
+    	<script type="text/javascript"></script>
+    	<?php
+    	$head = ob_get_contents();
+    	ob_end_clean();
+    	return $head;
+    }
+    
+    public function getMainVideosScripts()
+    {
+    	ob_start();
+    	?>
+    	<script type="text/javascript">
+		</script>
+		<script src=""></script>
+		<script src="/js/back/videos.js"></script>
+    	<?php
+    	$scripts = ob_get_contents();
+    	ob_end_clean();
+    	return $scripts;
+    }
+    
+    public function getMainVideosContent()
+    {
+    	ob_start();
+    	?>
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-horizontal">
+					<div class="form-group">
+	                   	<label for="inputName" class="col-md-1 control-label">Video URL</label>
+						<div class="col-md-10">
+							<input type="" class="form-control slider-link" placeholder="e.g. https://www.youtube.com/watch?v=Clg1IbQ7sNY" value="" id="videoURL">
+						</div>
+						<div class="col-md-1">
+							<button type="button" id="add-slider" class="btn btn-block btn-info addVideo">Add Video</button>
+						</div>
+	                </div>
+                </form>
+			</div>
+			
+			<div class="col-md-12">
+				<div class="videos swipebox-video">
+					<?php 
+					foreach ($this->data['videos'] as $video)
+					{
+					$image = str_replace('2.jpg', 'mqdefault.jpg', $video['image']);
+					?>
+					<div id="video-<?php echo $video['video_id']; ?>" class="col-md-3">
+						<article class='protip'>
+							<header>
+								<div class="img-cover">	
+									<a href="https://www.youtube.com/watch?v=<?php echo $video['youtube']; ?>" rel="youtube" class="title">
+										<img src="<?php echo $image; ?>"
+												alt="<?php $video['title']; ?>"  class="protip_li_img"/>
+									</a>
+								</div>
+							</header>
+							<div class="clr"></div>
+							<a href="https://www.youtube.com/watch?v=<?php echo $video['youtube']; ?>" rel="youtube" class="title " style="font-size: 1.2em; font-weight: bold;">
+								<?php echo $video['title']; ?>
+							</a>
+							<a href="javascript:void(0);" vid="<?php echo $video['video_id']; ?>" class="delete">delete</a>
+						</article>
+					</div>
+					<?php
+					}
+					?>
 				</div>
 			</div>
 		</div>
