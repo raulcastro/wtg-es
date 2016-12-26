@@ -97,6 +97,10 @@ class Layout_View
 				case 'videos':
 					echo self::getMainVideosHead();
 				break;
+				
+				case 'settings':
+					echo self::getSettingsHead();
+				break;
 			}
 			?>
 		</head>
@@ -142,6 +146,10 @@ class Layout_View
 								echo self::getMainVideosContent();
 							break;
 								
+							case 'settings':
+								echo self::getSettingsContent();
+							break;
+							
 							default :
 								# code...
 							break;
@@ -188,6 +196,10 @@ class Layout_View
 				
 				case 'videos':
 					echo self::getMainVideosScripts();
+				break;
+				
+				case 'settings':
+					echo self::getSettingsScripts();
 				break;
 			}
 			?>
@@ -405,7 +417,7 @@ class Layout_View
                             </ul>
                         </li>
                         <li>
-							<a href="/settings/" ><i class="fa fa-gears"></i></a>
+							<a href="/admin/main-settings/" ><i class="fa fa-gears"></i></a>
 						</li>
                     </ul>
                 </div>
@@ -1304,7 +1316,6 @@ class Layout_View
 									</div>
 			                  	</div>
 			                  	
-			                  	
 			                  	<div class="form-group">
 									<div class="col-sm-offset-1 col-sm-10">
 										<button type="submit" class="btn btn-success save-company-social">Save</button>
@@ -1720,6 +1731,186 @@ class Layout_View
 					<?php
 					}
 					?>
+				</div>
+			</div>
+		</div>
+        <?php
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
+    }
+    
+    public function getSettingsHead()
+    {
+    	ob_start();
+    	?>
+    	<script type="text/javascript"></script>
+    	<?php
+    	$head = ob_get_contents();
+    	ob_end_clean();
+    	return $head;
+    }
+    
+    public function getSettingsScripts()
+    {
+    	ob_start();
+    	?>
+    	<script type="text/javascript">
+		</script>
+		<script src=""></script>
+		<script src="/js/back/settings.js"></script>
+    	<?php
+    	$scripts = ob_get_contents();
+    	ob_end_clean();
+    	return $scripts;
+    }
+    
+    public function getSettingsContent()
+    {
+    	ob_start();
+    	?>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="nav-tabs-custom">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#generalSettings" data-toggle="tab">General</a></li>
+						<li><a href="#locationSettings" data-toggle="tab">Locations</a></li>
+						<li><a href="#categoriesSettings" data-toggle="tab">Categories</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="active tab-pane" id="generalSettings">
+							<div class="row">
+								<div class="col-md-12">
+									<form class="form-horizontal">
+										<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Title</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteTittle" placeholder="Title" value="<?php echo $this->data['appInfo']['title']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Site name</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteName" placeholder="Site name" value="<?php echo $this->data['appInfo']['siteName']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">URL</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteUrl" placeholder="URL" value="<?php echo $this->data['appInfo']['url']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Content</label>
+											<div class="col-sm-11">
+												<textarea class="form-control" id="siteContent" placeholder="Content"><?php echo $this->data['appInfo']['content']; ?></textarea>
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Description</label>
+											<div class="col-sm-11">
+												<textarea class="form-control" id="siteDescription" placeholder="Description"><?php echo $this->data['appInfo']['description']; ?></textarea>
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Keywords</label>
+											<div class="col-sm-11">
+												<textarea class="form-control" id="siteKeywords" placeholder="Keywords"><?php echo $this->data['appInfo']['keywords']; ?></textarea>
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Email</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteEmail" placeholder="Email" value="<?php echo $this->data['appInfo']['email']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Location</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteLocation" placeholder="Location" value="<?php echo $this->data['appInfo']['location']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Twitter</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteTwitter" placeholder="Twitter" value="<?php echo $this->data['appInfo']['twitter']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Facebook</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteFacebook" placeholder="Facebook" value="<?php echo $this->data['appInfo']['facebook']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Google+</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteGoogleplus" placeholder="Google +" value="<?php echo $this->data['appInfo']['googleplus']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Pinterest</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="sitePinterest" placeholder="Pinterest" value="<?php echo $this->data['appInfo']['pinterest']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">LinkedIn</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteLinkedin" placeholder="LinkedIn" value="<?php echo $this->data['appInfo']['linkedin']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Youtube</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteYoutube" placeholder="Youtube" value="<?php echo $this->data['appInfo']['youtube']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Instagram</label>
+											<div class="col-sm-11">
+												<input type="" class="form-control" id="siteInstagram" placeholder="Instagram" value="<?php echo $this->data['appInfo']['instagram']; ?>">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+											<div class="col-sm-offset-1 col-sm-10">
+												<button type="submit" class="btn btn-success update-settings">Save</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="locationSettings">
+							<div class="row">
+								<div class="col-md-12">
+									locations
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="categoriesSettings">
+							<div class="row">
+								<div class="col-md-12">
+									categories
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -12,7 +12,8 @@ switch ($_GET['option'])
 		$model	= new Layout_Model();
 		if (!empty($_POST))
 		{
-			$model->updateSettings($_POST);
+			if ($model->updateSettings($_POST))
+				echo 1;
 		}
 	break;
 }

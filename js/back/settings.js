@@ -2,6 +2,8 @@ $(document).ready(function()
 {
 	$('.update-settings').click(function(){
 		updateSettings();
+		
+		return false;
 	});
 
 });//Document ready ends here!
@@ -50,6 +52,11 @@ function updateSettings()
             if ('1' == xml)
             {
 //            	$('#cgid-'+pictureId).fadeOut();
+            	bootbox.alert({
+            	    message: "The general info has been succesfully updated! =)",
+            	    size: 'small',
+            	    backdrop: true
+            	});
             }
         }
     });

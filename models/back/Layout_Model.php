@@ -782,8 +782,11 @@ class Layout_Model
 	{
 		try
 		{
+			
 			$url = "http://gdata.youtube.com/feeds/api/videos/".$video;
-			 
+			
+			echo $url;
+			
 			$xml = self::load_file_from_url($url);
 				
 			if (!$xml)

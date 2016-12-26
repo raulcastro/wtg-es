@@ -12,7 +12,7 @@
 	
 	$data 		= $backend->loadBackend($option);
 	
-	$data['title'] = "Main videos";
+	$data['title'] 			= "Main videos";
 	$data['section'] 		= 'videos';
 	$data['icon']			= 'fa-dashboard';
 	$data['template-class'] = '';

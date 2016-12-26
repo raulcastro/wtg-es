@@ -65,6 +65,7 @@ RewriteRule ^admin/members/$ /admin/members.php?section=5
 RewriteRule ^admin/member-detail/([0-9]+)/$ /admin/member-detail.php?section=5&member=$1
 
 #   settings
+RewriteRule ^admin/main-settings/$ /admin/settings_n.php?section=9
 RewriteRule ^admin/settings/$ /admin/settings.php?section=9
 
 #   settings / categories
