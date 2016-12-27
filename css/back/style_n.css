@@ -524,9 +524,38 @@
 	color: #fff;
 }
 
+/* Settings Categories */
+#categoryList, #subcategoryList, #locationList {
+	list-style: none;
+}
 
+#categoryList li, #subcategoryList li, #locationList li {
+	margin-top: 5px;
+}
 
+#categoryList li a, #subcategoryList li a, #locationList li a{
+	color: #111;
+    background-color: #f3f3f3;
+    border-color: rgba(0,0,0,0.2);
+    border-radius: 3px;
+	display: block;
+    width: 60%;
+	padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+}
 
+#categoryList li a:hover, #categoryList li a.active, #subcategoryList li a:hover, #locationList li a:hover, #locationList li a.active {
+	color: #fff;
+    background-color: #2795e9;
+    border-color: rgba(0,0,0,0.2);
+}
+
+#locationSettingsRight, #categorySettingsRight {
+	display: none;
+}
 
 
 

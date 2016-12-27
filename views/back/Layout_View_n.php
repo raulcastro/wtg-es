@@ -1759,6 +1759,8 @@ class Layout_View
 		</script>
 		<script src=""></script>
 		<script src="/js/back/settings.js"></script>
+		<script src="/js/back/categories.js"></script>
+		<script src="/js/back/locations.js"></script>
     	<?php
     	$scripts = ob_get_contents();
     	ob_end_clean();
@@ -1774,8 +1776,8 @@ class Layout_View
 				<div class="nav-tabs-custom">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#generalSettings" data-toggle="tab">General</a></li>
-						<li><a href="#locationSettings" data-toggle="tab">Locations</a></li>
 						<li><a href="#categoriesSettings" data-toggle="tab">Categories</a></li>
+						<li><a href="#locationSettings" data-toggle="tab">Locations</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="active tab-pane" id="generalSettings">
@@ -1896,17 +1898,162 @@ class Layout_View
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="locationSettings">
+						
+						<div class="tab-pane" id="categoriesSettings">
 							<div class="row">
-								<div class="col-md-12">
-									locations
+								<div class="col-md-6">
+									<form class="form-horizontal">
+										<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Name</label>
+											<div class="col-sm-8">
+												<input type="" class="form-control" id="categoryName" placeholder="Category name" value="">
+											</div>
+											<div class="col-sm-2">
+												<button type="submit" class="btn btn-success addCategory">Add</button>
+											</div>
+					                  	</div>
+									</form>
+									<div>
+										<ul id="categoryList">
+											<?php 
+											foreach ($this->data['categories'] as $category)
+											{
+												?>
+											<li id="cat-<?php echo $category['category_id']; ?>">
+												<a href="javascript:void(0);" catId="<?php echo $category['category_id']; ?>">
+													<?php echo $category['name']; ?>
+												</a>
+											</li>
+												<?php
+											}
+											?>
+										</ul>
+									</div>
+								</div>
+								
+								<div class="col-md-6" id="categorySettingsRight">
+									<h4 id="catName"></h4>
+									<form class="form-horizontal">
+										<input type="hidden" value="0" id="currentCategory" />
+										
+										<div class="form-group">
+					                    	<label for="inputName" class="col-sm-2 control-label">Name</label>
+											<div class="col-sm-10">
+												<input type="" class="form-control" id="currentName" placeholder="Category name" value="">
+											</div>
+					                  	</div>
+					                  	
+					                  	<div class="form-group">
+					                    	<label for="inputName" class="col-sm-2 control-label">Title</label>
+											<div class="col-sm-10">
+												<input type="" class="form-control" id="currentTitle" placeholder="Category title" value="">
+											</div>
+					                  	</div>
+					                  	
+										<div class="form-group">
+					                    	<label for="inputName" class="col-sm-2 control-label">Description</label>
+											<div class="col-sm-10">
+												<textarea class="form-control" id="currentDescription" rows="3" placeholder="Category description"></textarea>
+											</div>
+					                  	</div>
+										
+										<div class="form-group">
+											<div class="col-sm-offset-8 col-sm-10">
+												<button type="submit" class="btn btn-sm btn-danger delete-category">Delete</button>
+												<button type="submit" class="btn btn-sm btn-info update-category">Save</button>
+											</div>
+										</div>
+										
+										<div class="clr"></div>
+									</form>
+										
+									<h3>Subcategories</h3>
+										
+									<div>
+										<form class="form-horizontal">
+											<div class="form-group">
+						                    	<label for="inputName" class="col-sm-1 control-label">Name</label>
+												<div class="col-sm-8">
+													<input type="" class="form-control" id="subcategoryName" placeholder="Subcategory name" value="">
+												</div>
+												<div class="col-sm-2">
+													<button type="submit" class="btn btn-success addSubcategory">Add</button>
+												</div>
+						                  	</div>
+										</form>
+									</div>
+										
+									
+									<div class="clr"></div>
+									
+									<ul id="subcategoryList">
+										
+									</ul>
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="categoriesSettings">
+						
+						<div class="tab-pane" id="locationSettings">
 							<div class="row">
-								<div class="col-md-12">
-									categories
+								<div class="col-md-6">
+									<form class="form-horizontal">
+										<div class="form-group">
+					                    	<label for="inputName" class="col-sm-1 control-label">Name</label>
+											<div class="col-sm-8">
+												<input type="" class="form-control" id="locationName" placeholder="Location name" value="">
+											</div>
+											<div class="col-sm-2">
+												<button type="submit" class="btn btn-success addLocation">Add</button>
+											</div>
+					                  	</div>
+									</form>
+									<div>
+										<ul id="locationList">
+											<?php 
+											foreach ($this->data['locations'] as $location)
+											{
+												?>
+											<li id="loc-<?php echo $location['location_id']; ?>">
+												<a href="javascript:void(0);" locId="<?php echo $location['location_id']; ?>">
+													<?php echo $location['name']; ?>
+												</a>
+											</li>
+												<?php
+											}
+											?>
+										</ul>
+									</div>
+								</div>
+								
+								<div class="col-md-6" id="locationSettingsRight">
+									<h4 id="locName"></h4>
+									<form class="form-horizontal">
+										<input type="hidden" value="0" id="currentLocation" />
+										
+										<div class="form-group">
+					                    	<label for="inputName" class="col-sm-2 control-label">Name</label>
+											<div class="col-sm-10">
+												<input type="" class="form-control" id="currentLocationName" placeholder="Location name" value="">
+											</div>
+					                  	</div>
+					                  	
+										<div class="form-group">
+					                    	<label for="inputName" class="col-sm-2 control-label">Description</label>
+											<div class="col-sm-10">
+												<textarea class="form-control" id="currentLocationDescription" rows="3" placeholder="Category description"></textarea>
+											</div>
+					                  	</div>
+										
+										<div class="form-group">
+											<div class="col-sm-offset-8 col-sm-10">
+												<button type="submit" class="btn btn-sm btn-danger delete-location">Delete</button>
+												<button type="submit" class="btn btn-sm btn-info update-location">Save</button>
+											</div>
+										</div>
+										
+										<div class="clr"></div>
+									</form>
+										
 								</div>
 							</div>
 						</div>

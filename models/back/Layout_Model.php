@@ -675,6 +675,8 @@ class Layout_Model
 			$data['catDescription'],
 			$data['catId']
 			);
+			
+			
 			return $prep->execute();
 		} catch (Exception $e) {
 			return false;

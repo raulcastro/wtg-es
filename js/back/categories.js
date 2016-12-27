@@ -2,6 +2,7 @@ $(document).ready(function()
 {
 	$('.addCategory').click(function(){
 		addCategory();
+		return false;
 	});
 	
 	$('#categoryList li a').click(function(){
@@ -10,14 +11,17 @@ $(document).ready(function()
 
 	$('.update-category').click(function(){
 		updateCategory();
+		return false;
 	});
 	
 	$('.delete-category').click(function(){
 		deleteCategory();
+		return false;
 	});
 	
 	$('.addSubcategory').click(function(){
 		addSubcategory();
+		return false;
 	});
 	
 });//Document ready ends here!
@@ -89,6 +93,11 @@ function updateCategory()
         {
             if ('0' != data)
             {
+            	bootbox.alert({
+            	    message: "Category info has been succesfully updated! =)",
+            	    size: 'small',
+            	    backdrop: true
+            	});
             }
         }
     });
@@ -126,7 +135,7 @@ function getCategoryInfo(node)
         }
     });
 	
-	$('.categories-settings .right').show();
+	$('#categorySettingsRight').show();
 }
 
 function addCategory()

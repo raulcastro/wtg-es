@@ -2,6 +2,7 @@ $(document).ready(function()
 {
 	$('.addLocation').click(function(){
 		addLocation();
+		return false;
 	});
 	
 	$('#locationList li a').click(function(){
@@ -10,10 +11,12 @@ $(document).ready(function()
 
 	$('.update-location').click(function(){
 		updateLocation();
+		return false;
 	});
 	
 	$('.delete-location').click(function(){
 		deleteLocation();
+		return false;
 	});
 	
 });//Document ready ends here!
@@ -42,8 +45,8 @@ function deleteLocation(){
 function updateLocation()
 {
 	locId 			= $('#currentLocation').val();
-	locName 		= $('#currentName').val();
-	locDescription 	= $('#currentDescription').val();
+	locName 		= $('#currentLocationName').val();
+	locDescription 	= $('#currentLocationDescription').val();
 	
 	$.ajax({
         type:   'POST',
@@ -83,13 +86,13 @@ function getLocationInfo(node)
             	obj 		= JSON.parse(data);
             	$('#currentLocation').val(obj.locationInfo.location_id);
             	$('#locName').html(obj.locationInfo.name);
-            	$('#currentName').val(obj.locationInfo.name);
-            	$('#currentDescription').val(obj.locationInfo.description);
+            	$('#currentLocationName').val(obj.locationInfo.name);
+            	$('#currentLocationDescription').val(obj.locationInfo.description);
             }
         }
     });
 	
-	$('.categories-settings .right').show();
+	$('#locationSettingsRight').show();
 }
 
 function addLocation()
