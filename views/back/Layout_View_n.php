@@ -411,7 +411,7 @@ class Layout_View
                   						<a href="#" class="btn btn-default btn-flat"><?php echo _("Profile"); ?></a>
                 					</div>
                                     <div class="pull-right">
-                                        <a href="/sign-out/" class="btn btn-default btn-flat"><?php echo _("Sign Out"); ?></a>
+                                        <a href="/admin/sign-out/" class="btn btn-default btn-flat"><?php echo _("Sign Out"); ?></a>
                                     </div>
                                 </li>
                             </ul>
@@ -541,7 +541,7 @@ class Layout_View
     			<br />
     	    	<div class="panel panel-default">
 					<div class="panel-body">
-						<a href="/" class="btn btn-lg btn-success btn-block"><?php echo _("Log In"); ?></a>
+						<a href="/admin/" class="btn btn-lg btn-success btn-block"><?php echo _("Log In"); ?></a>
 					</div>
     			</div>
     		</div>
