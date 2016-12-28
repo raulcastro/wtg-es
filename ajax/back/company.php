@@ -143,5 +143,89 @@ switch ($_POST['section'])
 				echo 1;
 		}
 	break;
+	
+	case 'associate-event':
+		$model	= new Layout_Model();
+		if (!empty($_POST))
+		{
+			$date = Tools::formatToMYSQL($_POST['eventDate']);
+			if ($model->asociateEvent($_POST, $date))
+				echo 1;
+		}
+		
+	break;
+	
+	case 'add-event':
+		$model	= new Layout_Model();
+		if (!empty($_POST))
+		{
+			$date = Tools::formatToMYSQL($_POST['eventDate']);
+			if ($model->addEvent($_POST, $date))
+				echo 1;
+		}
+	
+	break;
+	
+	case 'get-events':
+		$model	= new Layout_Model();
+		if (!empty($_POST))
+		{
+			$events = $model->getEventsByCompany($_POST['companyId']);
+			if ($events)
+			{
+				foreach ($events as $event)
+				{
+					?>
+            		<div class="col-lg-4 col-md-6 event-item">
+						<div class="box box-success">
+							<div class="box-body box-profile">
+								<?php 
+		   					if ($event['logo'])
+		   					{
+		   						?>
+		   						<img class="profile-user-img img-responsive" src="/img-up/companies_pictures/logo/<?php echo $event['logo']; ?>" alt="User profile picture">
+		   						<?php 
+		   					}
+		   					else
+		   					{
+		   						?>
+		   						<img class="profile-user-img img-responsive" src="/images/default_item_front.jpg" alt="User profile picture">
+		   						<?php
+		   					}
+		   					?>
+							<h3 class="profile-username text-center"><?php echo $event['name']; ?></h3>
+							<p class="text-center"><?php echo Tools::formatMYSQLToFront($event['date']); ?></p>
+							<a href="/admin/edit-company/main/<?php echo $event['company_id']; ?>/<?php echo Tools::slugify($event['name']); ?>/" class="btn btn-primary btn-block"><b>Edit</b></a>
+							<a href="#" class="btn btn-danger btn-block deleteEvent" data-event-id="<?php echo $event['company_id']; ?>"><b>Delete</b></a>
+						</div>
+						<!-- /.box-body -->
+						</div>
+					</div>
+            		<?php
+            	}
+				
+			}
+		}
+	break;
+	
+	case 'delete-event':
+		$model	= new Layout_Model();
+		if (!empty($_POST))
+		{
+			if ($model->deleteEvent($_POST))
+				echo 1;
+		}
+	break;
 }
 ?>
+
+
+
+
+
+
+
+
+
+
+

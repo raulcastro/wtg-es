@@ -580,6 +580,24 @@
 }
 
 
+/**** Events *****/
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 20px!important;
+}
 
 
+.event-item {
+    height: 300px!important;
+    overflow: hidden;
+}
 
+
+.event-item .profile-user-img {
+	width: 220px;
+}
+
+.event-item .profile-username {
+	font-size: 16px;
+}

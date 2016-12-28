@@ -35,28 +35,30 @@ RewriteRule ^map/$ /map.php
 RewriteRule ^videos/$ /videos.php
 RewriteRule ^contact-us/$ /contact.php
 
+#Admin section
 
-#   Admin section
 
-#   Add company
+#Add company
 RewriteRule ^admin/add-company/$ /admin/add-company.php?1&section=2
 
-# grid
+#grid
 RewriteRule ^admin/dashboard/$ /admin/dashboard.php?section=3
+RewriteRule ^admin/grid/category/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/grid.php?infoRequest=category&categoryId=$1
+RewriteRule ^admin/grid/promoted/$ /admin/grid.php?infoRequest=promoted
+RewriteRule ^admin/grid/unpublished/$ /admin/grid.php?infoRequest=unpublished
+RewriteRule ^admin/grid/location/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/grid.php?infoRequest=location&locationId=$1
 
-#   Edit  companies
+#Edit  companies
 RewriteRule ^admin/edit-company/main/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company.php?company=$1
 
-#	Sign-Out
-RewriteRule ^admin/sign-out/$ /admin/sign-out.php?company=$1
-
-#   main-sliders
+#main-sliders
 RewriteRule ^admin/maingallery/$ /admin/main-gallery.php
 
-#   videos
+#videos
 RewriteRule ^admin/main-videos/$ /admin/videos.php?section=8
 
-#   settings
+#settings
 RewriteRule ^admin/main-settings/$ /admin/settings.php?section=9
 
-
+#Sign-Out
+RewriteRule ^admin/sign-out/$ /admin/sign-out.php?company=$1

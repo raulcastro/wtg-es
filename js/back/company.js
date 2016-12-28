@@ -26,6 +26,11 @@ $(document).ready(function()
 		publishCompany();
 	});
 	
+	$('#asociateEvent').click(function(){
+		associateEvent();
+		return false;
+	});
+	
 	$('#close-company').click(function(){
 		closeCompany();
 	});
@@ -34,6 +39,17 @@ $(document).ready(function()
 		createCompany();
 		return false;
 	});
+	
+	$('#addEvent').click(function(){
+		addEvent();
+		return false;
+	});
+	
+	$('.deleteEvent').click(function(){
+		deleteEvent(this);
+		return false;
+	});
+	
 	
 	$('#addEmailField').click(function(){
 		emailField = '<div class="form-group"><label class="col-sm-1 control-label">Email</label>'
@@ -809,7 +825,6 @@ function promoteCompany()
 	            }
 	        }
 	    });
-		
 	}
 	else
 	{
@@ -894,6 +909,156 @@ function countPromotedCompanies()
 	  }
 	  });
 }
+
+function associateEvent()
+{
+	companyId 	= $('#companyId').val();
+	eventId = $('#eventId').val();
+	eventDate = $('#eventDate').val();
+	
+	if (eventId && eventDate)
+	{
+		$.ajax({
+	        type:   'POST',
+	        url:    '/ajax/back/company.php',
+	        data:{  
+	        	companyId: 	companyId,
+	        	eventId:	eventId,
+	        	eventDate:	eventDate,
+	        	section: 	'associate-event'
+	             },
+	        success:
+	        function(xml)
+	        {
+	        	getEvents();
+//	            if ('1' == xml)
+//	            {
+//	            	$('#promote-company').removeClass('bg-purple');
+//	            	
+//	            	bootbox.alert({
+//	            	    message: "This company it's not longer promoted <br> ”(ᴗ_ ᴗ。)",
+//	            	    size: 'small',
+//	            	    backdrop: true
+//	            	});
+//	            }
+	        }
+	    });
+		
+	}
+}
+
+function addEvent()
+{
+	companyId 	= $('#companyId').val();
+	eventName	= $('#newEventName').val()
+	eventDate = $('#newEventDate').val();
+	if (eventName && eventDate)
+	{
+		$.ajax({
+	        type:   'POST',
+	        url:    '/ajax/back/company.php',
+	        data:{  
+	        	companyId: 	companyId,
+	        	eventName:	eventName,
+	        	eventDate:	eventDate,
+	        	section: 	'add-event'
+	             },
+	        success:
+	        function(xml)
+	        {
+	        	getEvents();
+//	            if ('1' == xml)
+//	            {
+//	            	$('#promote-company').removeClass('bg-purple');
+//	            	
+//	            	bootbox.alert({
+//	            	    message: "This company it's not longer promoted <br> ”(ᴗ_ ᴗ。)",
+//	            	    size: 'small',
+//	            	    backdrop: true
+//	            	});
+//	            }
+	        }
+	    });
+		
+	}
+}
+
+
+function getEvents()
+{
+	companyId 	= $('#companyId').val();
+	if (companyId)
+	{
+		$.ajax({
+	        type:   'POST',
+	        url:    '/ajax/back/company.php',
+	        data:{  
+	        	companyId: 	companyId,
+	        	section: 	'get-events'
+	             },
+	        success:
+	        function(xml)
+	        {
+	        	$('#boxAssociatedEvents').html(xml);
+	        	
+	        	$('.deleteEvent').click(function(){
+	        		deleteEvent(this);
+	        		return false;
+	        	});
+	        }
+	    });
+		
+	}
+}
+
+function deleteEvent(node)
+{
+	eventId = $(node).attr('data-event-id');
+	companyId 	= $('#companyId').val();
+	
+	if (eventId)
+	{
+		$.ajax({
+	        type:   'POST',
+	        url:    '/ajax/back/company.php',
+	        data:{  
+	        	companyId: 	companyId,
+	        	eventId:	eventId,
+	        	section: 	'delete-event'
+	             },
+	        success:
+	        function(xml)
+	        {
+	        	getEvents();
+	        }
+	    });
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

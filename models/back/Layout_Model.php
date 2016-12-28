@@ -2,6 +2,7 @@
 $root = $_SERVER['DOCUMENT_ROOT'].'/';
 require_once $root.'Framework/Back_Default_Header.php';
 
+
 class Layout_Model
 {
     private $db; 
@@ -905,6 +906,16 @@ class Layout_Model
 		}
 		catch (Exception $e)
 		{
+			return false;
+		}
+	}
+	
+	public function getEvents()
+	{
+		try {
+			$query = 'SELECT company_id, name FROM companies WHERE event = 1 AND belong_company IS NULL ORDER BY name';
+			return $this->db->getArray($query);
+		} catch (Exception $e) {
 			return false;
 		}
 	}
@@ -1932,4 +1943,108 @@ class Layout_Model
 		}
 	}
 	
+	public function asociateEvent($data, $date)
+	{
+		try {
+			$query = 'UPDATE companies SET belong_company = '.$data['companyId'].' WHERE company_id = '.$data['eventId'];
+			
+			if ($this->db->run($query))
+			{
+				$query = 'INSERT INTO events(event_id, date) VALUES(?, ?)';
+				
+				$prep = $this->db->prepare($query);
+				
+				$prep->bind_param('is',
+						$data['eventId'],
+						$date);
+				
+				return $prep->execute();
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	public function addEvent($data, $date)
+	{
+		try
+		{
+			$companyId = 0;
+			$query = 'INSERT INTO companies(name, belong_company, event, published) VALUES(?, ?, 1, 0)';
+			$prep = $this->db->prepare($query);
+			$prep->bind_param('si', $data['eventName'], $data['companyId']);
+				
+			if ($prep->execute())
+			{
+				$companyId = $prep->insert_id;
+	
+				$query = 'INSERT INTO social(company_id) values('.$companyId.')';
+	
+				if ($this->db->run($query)) {
+						
+					$query = 'INSERT INTO seo(company_id) values('.$companyId.')';
+					if ($this->db->run($query)) {
+						
+						$query = 'INSERT INTO events(event_id, date) VALUES(?, ?)';
+						
+						$prep = $this->db->prepare($query);
+						
+						$prep->bind_param('is',
+								$companyId,
+								$date);
+						
+						return $prep->execute();
+					}
+				}
+	
+			}
+		}
+		catch (Exception $e)
+		{
+			return false;
+		}
+	}
+	
+	public function deleteEvent($data)
+	{
+		try {
+			$query = 'DELETE FROM events WHERE event_id = '.$data['eventId'];
+			if ($this->db->run($query))
+			{
+				$query = 'UPDATE companies SET belong_company = NULL WHERE company_id = '.$data['eventId'];
+				
+				if ($this->db->run($query))
+				{
+					echo 1;
+				}
+			}
+			
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

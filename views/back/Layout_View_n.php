@@ -781,6 +781,10 @@ class Layout_View
   		<link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   		<link href="/css/back/uploadfile.css" rel="stylesheet">
   		<link href="/css/back/jquery.drag-n-crop.css" rel="stylesheet" type="text/css">
+  		<!-- Select2 -->
+  		<link rel="stylesheet" href="/plugins/select2/select2.min.css">
+  		<!-- bootstrap datepicker -->
+  		<link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
     	<script type="text/javascript"></script>
     	<?php
     	$head = ob_get_contents();
@@ -793,11 +797,16 @@ class Layout_View
     	ob_start();
     	?>
     	<script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    	
     	<script src="/js/jquery-ui.min.js"></script>
     	<script src="/js/back/jquery.uploadfile.min.js"></script>
     	<script src="/js/back/imagesloaded.js"></script>
 		<script src="/js/back/scale.fix.js"></script>
 		<script src="/js/back/jquery.drag-n-crop.js"></script>
+		<!-- Select2 -->
+		<script src="/plugins/select2/select2.full.min.js"></script>	
+		<!-- bootstrap datepicker -->
+		<script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
 		
     	<script type="text/javascript">
     	$(function () {
@@ -846,6 +855,14 @@ class Layout_View
     		$('#locations a').click(function(){
 				updateCompanyLocation(this);
 			});
+
+    		//Initialize Select2 Elements
+    	    $(".select2").select2();
+
+    	  //Date picker
+    	    $('#eventDate, #newEventDate').datepicker({
+    	      autoclose: true
+    	    });
 		});
   	  
 		</script>
@@ -872,7 +889,14 @@ class Layout_View
 						<li><a href="#mediaInfo" data-toggle="tab">Media</a></li>
 						<li><a href="#contactInfo" data-toggle="tab">Contact</a></li>
 						<li><a href="#socialInfo" data-toggle="tab">Social</a></li>
+						<?php 
+						if ($this->data['company']['general']['event'] == 0)
+						{
+							?>
 						<li><a href="#eventsInfo" data-toggle="tab">Events</a></li>
+						<?php 
+						}
+						?>
 						<li><a href="#settingsInfo" data-toggle="tab">Settings</a></li>
 					</ul>
 					<div class="tab-content">
@@ -923,7 +947,15 @@ class Layout_View
 												<?php
 												}
 												?>
+												<?php 
+												if ($this->data['company']['general']['event'] == 0)
+												{
+													?>
 												<li><a href="#">Events <span class="pull-right badge bg-blue">31</span></a></li>
+													<?php
+												}
+												?>
+												
 												<li></li>
 											</ul>
 										</div>
@@ -944,6 +976,10 @@ class Layout_View
 									<!-- /.box-header -->
 									<div class="box-body">
 										<strong><i class="fa fa-book margin-r-5"></i> Categories</strong>
+										<?php 
+										if ($this->data['company']['general']['event'] == 0)
+										{
+											?>
 										<div class="categoriesSelection">
 											<div class="categoriesBox" id="categories">
 						   						<ul>
@@ -999,6 +1035,9 @@ class Layout_View
 					   					</div>
 					   					<div class="clear"></div>
 										<hr>
+										<?php 
+										}
+										?>
 										<form class="form-horizontal">
 						                	<div class="form-group">
 						                    	<label for="inputName" class="col-sm-1 control-label">Name</label>
@@ -1338,20 +1377,144 @@ class Layout_View
 						<!-- /.tab-pane -->
 						
 						<div class="tab-pane" id="eventsInfo">
-							<form class="form-horizontal">
-								events
-							</form>
+							<div class="box box-info">
+				            	<div class="box-header with-border"></div>
+				            	
+								<div class="nav-tabs-custom tab-warning">
+									<ul class="nav nav-tabs">
+										<li class="active"><a href="#tab_1" data-toggle="tab"><b>Associate an event</b></a></li>
+										<li><a href="#tab_2" data-toggle="tab"><b>Create an event</b></a></li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane active" id="tab_1">
+											<div class="form-group">
+												<label>Find your event</label>
+												<select class="form-control select2" id="eventId" style="width: 100%;">
+													<option value="0" selected="selected">Event name</option>
+													<?php 
+													foreach ($this->data['events'] as $event)
+													{
+														?>
+														<option value="<?php echo $event['company_id']; ?>"><?php echo $event['name']; ?></option>
+														<?php
+													}
+													?>
+													
+												</select>
+											</div>
+											<!-- /.form-group -->
+										
+											<!-- Date -->
+											<div class="form-group">
+												<label>Date:</label>
+												
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<input type="text" class="form-control pull-right" id="eventDate">
+												</div>
+												<!-- /.input group -->
+											</div>
+											<!-- /.form group -->
+              								
+              								<div class="box-footer">
+												<button type="submit" class="btn btn-primary" id="asociateEvent">Associate event</button>
+											</div>
+										</div>
+										<!-- /.tab-pane -->
+										<div class="tab-pane" id="tab_2">
+											
+											<div class="form-group">
+												<label for="exampleInputEmail1">Event name</label>
+												<input type="text" class="form-control" id="newEventName" placeholder="Event name">
+											</div>
+											
+											<!-- Date -->
+											<div class="form-group">
+												<label>Date:</label>
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<input type="text" class="form-control pull-right" id="newEventDate">
+												</div>
+												<!-- /.input group -->
+											</div>
+											<!-- /.form group -->
+              								
+              								<div class="box-footer">
+												<button type="submit" class="btn btn-primary" id="addEvent">Add event</button>
+											</div>
+										</div>
+										<!-- /.tab-pane -->
+									</div>
+									
+									<!-- /.tab-content -->
+								</div>
+				          	</div>
+				          	<div class="box box-info">
+				            	<div class="box-header with-border"><b>Evens associated to <?php echo $this->data['company']['general']['name']; ?></b></div>
+				            	<div class="row" id="boxAssociatedEvents">
+				            		<?php 
+				            		if ($this->data['associated'])
+				            		{
+				            			foreach ($this->data['associated'] as $event)
+				            			{
+				            				?>
+				            		<div class="col-lg-4 col-md-6 event-item">
+										<div class="box box-success">
+											<div class="box-body box-profile">
+												<?php 
+							   					if ($event['logo'])
+							   					{
+							   						?>
+							   						<img class="profile-user-img img-responsive" src="/img-up/companies_pictures/logo/<?php echo $event['logo']; ?>" alt="User profile picture">
+							   						<?php 
+							   					}
+							   					else
+							   					{
+							   						?>
+							   						<img class="profile-user-img img-responsive" src="/images/default_item_front.jpg" alt="User profile picture">
+							   						<?php
+							   					}
+							   					?>
+												<h3 class="profile-username text-center"><?php echo $event['name']; ?></h3>
+												<p class="text-center"><?php echo Tools::formatMYSQLToFront($event['date']); ?></p>
+												<a href="/admin/edit-company/main/<?php echo $event['company_id']; ?>/<?php echo Tools::slugify($event['name']); ?>/" class="btn btn-primary btn-block"><b>Edit</b></a>
+												<a href="#" class="btn btn-danger btn-block deleteEvent" data-event-id="<?php echo $event['company_id']; ?>"><b>Delete</b></a>
+											</div>
+											<!-- /.box-body -->
+										</div>
+									</div>
+				            				<?php
+				            			}
+				            		}
+				            		?>
+				            	
+				            		
+									
+									
+				            	</div>
+				            </div>
 						</div>
 						<!-- /.tab-pane -->
 						
 						<div class="tab-pane" id="settingsInfo">
 							<form class="form-horizontal">
+							<?php 
+							if ($this->data['company']['general']['event'] == 0)
+							{
+								?>
 								<div class="form-group">
 									<div class="col-sm-2">
 										<button type="button" id="promote-company" class="btn btn-block btn-info <?php if ($this->data['company']['general']['main_promoted'] == 1){ echo 'bg-purple';} ?>">Main Promoted</button>
 									</div>
 									<div class="col-sm-10"></div>
 								</div>
+							<?php 
+							}
+							?>
 								
 								<div class="form-group">
 									<div class="col-sm-2">
@@ -1381,12 +1544,19 @@ class Layout_View
 									<div class="col-sm-10"></div>
 								</div>
 								
+								<?php 
+								if ($this->data['company']['general']['event'] == 0)
+								{
+									?>
 								<div class="form-group">
 									<div class="col-sm-2">
 										<button type="button" id="close-company" class="btn btn-block btn-info <?php if ($this->data['company']['general']['closed'] == 0){ echo 'bg-purple';} ?>">Open</button>
 									</div>
 									<div class="col-sm-10"></div>
 								</div>
+								<?php 
+								}
+								?>
 								
 								<div class="form-group">
 									<div class="col-sm-2">

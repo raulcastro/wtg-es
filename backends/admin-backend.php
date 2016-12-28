@@ -62,6 +62,7 @@ class generalBackend
 			case 'companies':
 				// 		get All companies
 				$data['companies'] = $this->model->getCompanies();
+				
 			break;
 			
 			case 'promoted':
@@ -142,6 +143,11 @@ class generalBackend
 				
 				$companiesLocationsArray	= $this->model->getCompanyLocations($companyId);
 				$data['companiesLocations'] = $companiesLocationsArray;
+				
+				// get All Events
+				$data['events'] = $this->model->getEvents();
+				
+				$data['associated'] = $this->model->getEventsByCompany($companyId);
 			break;
 			
 			case 'events' :
