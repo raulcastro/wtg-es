@@ -45,6 +45,7 @@ RewriteRule ^admin/sign-out/$ /admin/sign-out.php
 
 #   Add company
 RewriteRule ^admin/add-company/$ /admin/add-company.php?1&section=2
+RewriteRule ^admin/addcompany/$ /admin/add-company_n.php?1&section=2
 
 # grid
 RewriteRule ^admin/dashboard/$ /admin/dashboard.php?section=3

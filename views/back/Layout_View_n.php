@@ -81,6 +81,10 @@ class Layout_View
 				case 'log-in':
  					echo self :: getLogInHead();
 				break;
+				
+				case 'add-company':
+					echo self::getAddCompanyHead();
+				break;
 
 				case 'dashboard':
 					# code...
@@ -134,6 +138,10 @@ class Layout_View
 								echo self::getGridContent();
 							break;
 							
+							case 'add-company':
+								echo self::getAddCompanyContent();
+							break;
+							
 							case 'edit-company':
 								echo self::getEditCompanyContent();
 							break;
@@ -184,6 +192,10 @@ class Layout_View
 			{
 				case 'log-in':
 					echo self::getLogInScripts();
+				break;
+				
+				case 'add-company':
+					echo self::getAddCompanyScripts();
 				break;
 				
 				case 'main-gallery':
@@ -605,14 +617,14 @@ class Layout_View
 							</span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/add-client/"><i class="fa fa-circle-o"></i> <?php echo _("Add company"); ?></a></li>
+                            <li><a href="/admin/add-company/"><i class="fa fa-plus-square-o"></i> <?php echo _("Add company"); ?></a></li>
                             <?php
 		   				    foreach ($this->data['categories'] as $c)
 		   				    {
 		   				    ?>
 		   			        <li>
 		   						<a href="/admin/grid/category/<?php echo $c['category_id']; ?>/<?php echo Tools::slugify($c['name']); ?>/">
-		   							<i class="fa fa-circle-o"></i>
+		   							<i class="fa  fa-tag"></i>
 		   							<?php echo $c['name']; ?>
 		   						</a>
 		   					</li>
@@ -2066,6 +2078,88 @@ class Layout_View
         ob_end_clean();
         return $content;
     }   
+    
+    public function getAddCompanyHead()
+    {
+    	ob_start();
+    	?>
+    	<script type="text/javascript"></script>
+    	<?php
+    	$head = ob_get_contents();
+    	ob_end_clean();
+    	return $head;
+    }
+    
+    public function getAddCompanyScripts()
+    {
+    	ob_start();
+    	?>
+    	<script type="text/javascript">
+		</script>
+		<script src=""></script>
+		<script src="/js/back/company.js"></script>
+    	<?php
+    	$scripts = ob_get_contents();
+    	ob_end_clean();
+    	return $scripts;
+    }
+    
+    public function getAddCompanyContent()
+    {
+    	ob_start();
+    	?>
+		<div class="row">
+			<div class="col-md-6 col-center">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Add a company ... or an event</h3>
+					</div>
+					<!-- /.box-header -->
+					<!-- form start -->
+					<form role="form">
+						<div class="box-body">
+							<div class="form-group">
+								<input type="text" class="form-control" id="new-company-name" placeholder="Enter company name">
+							</div>
+							
+							<div class="form-group">
+								<div class="radio">
+									<label>
+										<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+										It's a <strong>company</strong>!
+									</label>
+								</div>
+								<div class="radio">
+									<label>
+										<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+										It's an <strong>event</strong>!
+									</label>
+								</div>
+							</div>
+						</div>
+						<!-- /.box-body -->
+						
+						<div class="box-footer">
+							<button type="submit" class="btn btn-primary" id="create-company">Add it now!</button>
+							<button type="submit" class="btn btn-success" id="create-company-next">Complete the info!</button>
+						</div>
+					              
+					</form>
+					<!-- Loading (remove the following to stop the loading)-->
+					<div class="overlay" id="add-company-loader">
+						<i class="fa fa-refresh fa-spin"></i>
+						<p class="over-message text-light-blue">wait, we are saving the data ...</p>
+					</div>
+					<!-- end loading -->
+					
+				</div>
+			</div>
+		</div>
+        <?php
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
+    }
     
     public function getSectionHead()
     {

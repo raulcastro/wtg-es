@@ -578,13 +578,18 @@ class Layout_Model
 			$query = 'INSERT INTO companies(name, published) VALUES(?, 0)';
 			$prep = $this->db->prepare($query);
 			$prep->bind_param('s', $companyName);
+			
 			if ($prep->execute())
 			{
 				$companyId = $prep->insert_id;
+				
 				$query = 'INSERT INTO social(company_id) values('.$companyId.')';
+				
 				if ($this->db->run($query)) {
+					
 					$query = 'INSERT INTO seo(company_id) values('.$companyId.')';
 					if ($this->db->run($query)) {
+						
 						return $companyId;
 					}
 				}

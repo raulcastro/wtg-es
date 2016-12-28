@@ -32,6 +32,7 @@ $(document).ready(function()
 	
 	$('#create-company').click(function(){
 		createCompany();
+		return false;
 	});
 	
 	$('#addEmailField').click(function(){
@@ -744,25 +745,38 @@ function closeCompany(pictureId)
 function createCompany()
 {
 	companyName = $('#new-company-name').val();
+	$('#create-company').hide();
 	
-	$.ajax({
-        type:   'POST',
-        url:    '/ajax/back/company.php',
-        data:{  
-        	companyName: companyName,
-        	section: 'create'
-             },
-        success:
-        function(xml)
-        {
-            if ('0' != xml)
-            {
-            	$('#create-company-next').attr('href', '/admin/company/main/'+xml+'/new-company/');
-            	$('#create-company').slideUp();
-            	$('#create-company-next').show();
-            }
-        }
-    });
+	if (companyName)
+	{
+		$('#add-company-loader').show();
+		$.ajax({
+	        type:   'POST',
+	        url:    '/ajax/back/company.php',
+	        data:{  
+	        	companyName: companyName,
+	        	section: 'create'
+	             },
+	        success:
+	        function(xml)
+	        {
+	            if ('0' != xml)
+	            {
+	            	setTimeout(func, 3000);
+	            	function func() {
+	            		$('#add-company-loader').hide();
+	            		
+	            		var editCompany = '/admin/edit-company/main/'+xml+'/new-company/';
+		            	
+		            	pathArray 		= $(location).attr('href').split( '/' );
+		        		newURL 			= pathArray[0]+'//'+pathArray[2]+editCompany;
+		            	window.location = newURL;
+	            	}
+	            	
+	            }
+	        }
+	    });
+	}
 	
 }
 

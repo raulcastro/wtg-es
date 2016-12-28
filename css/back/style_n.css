@@ -557,9 +557,27 @@
 	display: none;
 }
 
+/** Add Company **/
 
+.col-center {
+   float: none;
+   margin-right: auto;
+   margin-left: auto;
+}
 
+.overlay p.over-message {
+	position: absolute;
+    top: 80%;
+    left: 35%;
+    margin-left: -15px;
+    margin-top: -15px;
+    color: #000;
+    font-size: 18px;
+}
 
+#add-company-loader, #create-company-next {
+	display: none;
+}
 
 
 

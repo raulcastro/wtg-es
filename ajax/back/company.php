@@ -116,7 +116,9 @@ switch ($_POST['section'])
 		if (!empty($_POST))
 		{
 			$companyId = 0;
+			
 			$companyId = $model->createCompany($_POST['companyName']);
+			
 			if ($companyId > 0)
 			{
 				echo $companyId;
