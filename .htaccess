@@ -35,45 +35,28 @@ RewriteRule ^map/$ /map.php
 RewriteRule ^videos/$ /videos.php
 RewriteRule ^contact-us/$ /contact.php
 
+
 #   Admin section
-
-#   Edit  companies
-RewriteRule ^admin/edit-company/main/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company_n.php?company=$1
-
-#	Sign-Out
-RewriteRule ^admin/sign-out/$ /admin/sign-out.php
 
 #   Add company
 RewriteRule ^admin/add-company/$ /admin/add-company.php?1&section=2
-RewriteRule ^admin/addcompany/$ /admin/add-company_n.php?1&section=2
 
 # grid
 RewriteRule ^admin/dashboard/$ /admin/dashboard.php?section=3
 
-RewriteRule ^admin/grid/category/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/grid.php?infoRequest=category&categoryId=$1
-RewriteRule ^admin/grid/promoted/$ /admin/grid.php?infoRequest=promoted
-RewriteRule ^admin/grid/unpublished/$ /admin/grid.php?infoRequest=unpublished
-RewriteRule ^admin/grid/location/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/grid.php?infoRequest=location&locationId=$1
+#   Edit  companies
+RewriteRule ^admin/edit-company/main/([0-9]+)/([A-Za-z0-9-]+)/$ /admin/edit-company.php?company=$1
+
+#	Sign-Out
+RewriteRule ^admin/sign-out/$ /admin/sign-out.php?company=$1
 
 #   main-sliders
-RewriteRule ^admin/maingallery/$ /admin/main-gallery_n.php
-RewriteRule ^admin/main-gallery/$ /admin/main-gallery.php?section=7
+RewriteRule ^admin/maingallery/$ /admin/main-gallery.php
 
 #   videos
-RewriteRule ^admin/main-videos/$ /admin/videos_n.php?section=8
-RewriteRule ^admin/videos/$ /admin/videos.php?section=8
-
-#   Members
-RewriteRule ^admin/members/$ /admin/members.php?section=5
-RewriteRule ^admin/member-detail/([0-9]+)/$ /admin/member-detail.php?section=5&member=$1
+RewriteRule ^admin/main-videos/$ /admin/videos.php?section=8
 
 #   settings
-RewriteRule ^admin/main-settings/$ /admin/settings_n.php?section=9
-RewriteRule ^admin/settings/$ /admin/settings.php?section=9
+RewriteRule ^admin/main-settings/$ /admin/settings.php?section=9
 
-#   settings / categories
-RewriteRule ^admin/categories/$ /admin/categories.php?section=9
-
-#   settings / locations
-RewriteRule ^admin/locations/$ /admin/locations.php?section=9
 

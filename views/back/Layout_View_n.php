@@ -617,7 +617,7 @@ class Layout_View
 							</span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/admin/add-company/"><i class="fa fa-plus-square-o"></i> <?php echo _("Add company"); ?></a></li>
+                            <li><a href="/admin/add-company/"><i class="fa fa-plus-square"></i> <?php echo _("Add company"); ?></a></li>
                             <?php
 		   				    foreach ($this->data['categories'] as $c)
 		   				    {
@@ -674,7 +674,7 @@ class Layout_View
 		   				    ?>
 		   			        <li>
 		   						<a href="/admin/grid/location/<?php echo $c['location_id']; ?>/<?php echo Tools::slugify($c['name']); ?>/">
-		   							<i class="fa fa-circle-o"></i>
+		   							<i class="fa fa-map-pin"></i>
 		   							<?php echo $c['name']; ?>
 		   						</a>
 		   					</li>
